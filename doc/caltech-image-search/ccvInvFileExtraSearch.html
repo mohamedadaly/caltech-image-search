@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvInvFileExtraSearch</title>
+  <meta name="keywords" content="ccvInvFileExtraSearch">
+  <meta name="description" content="CCVINVFILEExtraSEARCH searches the inverted file structure for the input data">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvInvFileExtraSearch.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvInvFileExtraSearch
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVINVFILEExtraSEARCH searches the inverted file structure for the input data</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [ids dists] = ccvInvFileExtraSearch(ivf, data, dfeats, sfeats,weight, norm, dist, fdist, fthresh, ftype, nret, ovlponly, verbose) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVINVFILEExtraSEARCH searches the inverted file structure for the input data
+ and returns the nearest neighbors together with the distance. 
+ This function MUST be called AFTER calling ccvInvFileCompStats with the
+ same weight and norm, otherwise the results are undefined.
+
+ INPUTS
+ ------
+ ivf       - the input inverted file created before
+ data      - the data to search for, a cell array with one vector per
+             document having the word ids of its conents
+ dfeats    - the features corresponding to the data already inside the
+             inverted file
+ sfeats    - the features corresponding to the input search data
+ weight    - ['none'] the weighting to use
+             'none'  -&gt; don't weight counts values
+             'bin'   -&gt; binarize the counts
+             'tf'    -&gt; term frequency, divide each count by the number of 
+                         words in the doc
+             'tfidf' -&gt; use tf-idf weighting
+ norm      - ['none'] the normalization to use
+             'none' -&gt; no normalization
+             'l0'   -&gt; normalize by the number of words
+             'l1'   -&gt; normalize so that the histogram sum = 1
+             'l2'   -&gt; normalize so that histogram sum square = 1
+ dist      - ['l1'] the distance function to use
+               'l1'    -&gt; l1 distance
+               'l2'    -&gt; l2 distance
+               'ham'   -&gt; hamming distance
+               'cos'   -&gt; cos distance (dot product)
+               'jac'   -&gt; Jacquard distance
+               'hist-int' -&gt; Histogram Intersection
+ fdist     - ['l2'] the distance to use for the features (see ccvDistance)
+ fthresh   - [0] the threshold for the distance
+ ftype     - ['bin'] the type of weighting to use for the feature matching
+             'bin'   -&gt; 1 if fdist&lt;fthresh, 0 otherwise
+             'exp'   -&gt; exp(-fdist / fthresh)
+             'inv'   -&gt; 1 / fdist
+ nret      - [0] the number of documents to return, 0 to return all
+             nearest neighbors
+ ovlponly  - [1] return only documents with overlapping documents, or all
+             documents. If ovlponly=0 and nret=0, then nret is set
+             to the number of documents in the inverted file, and a matrix
+             is returned
+ verbose   - [0] verbose or not
+
+ OUTPUTS
+ -------
+ ids       - the sorted ids of nearest documents, either a cell array (if
+             nret==0 or ovlponly==0) or a matrix [nretXndocs]. 
+             0 ids means empty id.
+ dists     - the distances to nearest documents
+
+ See also <a href="ccvInvFileInsert.html" class="code" title="function ivf = ccvInvFileInsert(ivf, data, nwords, idshift)">ccvInvFileInsert</a> <a href="ccvInvFileLoad.html" class="code" title="function ivf = ccvInvFileLoad(file)">ccvInvFileLoad</a> <a href="ccvInvFileSave.html" class="code" title="function ccvInvFileSave(ivf, file)">ccvInvFileSave</a>
+ <a href="ccvInvFileClean.html" class="code" title="function ccvInvFileClean(ivf)">ccvInvFileClean</a> <a href="ccvInvFileCompStats.html" class="code" title="function ccvInvFileCompStats(ivf, weight, norm)">ccvInvFileCompStats</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [ids dists] = ccvInvFileExtraSearch(ivf, data, dfeats, sfeats, </a><span class="keyword">...</span>
+0002   weight, norm, dist, fdist, fthresh, ftype, nret, ovlponly, verbose)
+0003 <span class="comment">% CCVINVFILEExtraSEARCH searches the inverted file structure for the input data</span>
+0004 <span class="comment">% and returns the nearest neighbors together with the distance.</span>
+0005 <span class="comment">% This function MUST be called AFTER calling ccvInvFileCompStats with the</span>
+0006 <span class="comment">% same weight and norm, otherwise the results are undefined.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% INPUTS</span>
+0009 <span class="comment">% ------</span>
+0010 <span class="comment">% ivf       - the input inverted file created before</span>
+0011 <span class="comment">% data      - the data to search for, a cell array with one vector per</span>
+0012 <span class="comment">%             document having the word ids of its conents</span>
+0013 <span class="comment">% dfeats    - the features corresponding to the data already inside the</span>
+0014 <span class="comment">%             inverted file</span>
+0015 <span class="comment">% sfeats    - the features corresponding to the input search data</span>
+0016 <span class="comment">% weight    - ['none'] the weighting to use</span>
+0017 <span class="comment">%             'none'  -&gt; don't weight counts values</span>
+0018 <span class="comment">%             'bin'   -&gt; binarize the counts</span>
+0019 <span class="comment">%             'tf'    -&gt; term frequency, divide each count by the number of</span>
+0020 <span class="comment">%                         words in the doc</span>
+0021 <span class="comment">%             'tfidf' -&gt; use tf-idf weighting</span>
+0022 <span class="comment">% norm      - ['none'] the normalization to use</span>
+0023 <span class="comment">%             'none' -&gt; no normalization</span>
+0024 <span class="comment">%             'l0'   -&gt; normalize by the number of words</span>
+0025 <span class="comment">%             'l1'   -&gt; normalize so that the histogram sum = 1</span>
+0026 <span class="comment">%             'l2'   -&gt; normalize so that histogram sum square = 1</span>
+0027 <span class="comment">% dist      - ['l1'] the distance function to use</span>
+0028 <span class="comment">%               'l1'    -&gt; l1 distance</span>
+0029 <span class="comment">%               'l2'    -&gt; l2 distance</span>
+0030 <span class="comment">%               'ham'   -&gt; hamming distance</span>
+0031 <span class="comment">%               'cos'   -&gt; cos distance (dot product)</span>
+0032 <span class="comment">%               'jac'   -&gt; Jacquard distance</span>
+0033 <span class="comment">%               'hist-int' -&gt; Histogram Intersection</span>
+0034 <span class="comment">% fdist     - ['l2'] the distance to use for the features (see ccvDistance)</span>
+0035 <span class="comment">% fthresh   - [0] the threshold for the distance</span>
+0036 <span class="comment">% ftype     - ['bin'] the type of weighting to use for the feature matching</span>
+0037 <span class="comment">%             'bin'   -&gt; 1 if fdist&lt;fthresh, 0 otherwise</span>
+0038 <span class="comment">%             'exp'   -&gt; exp(-fdist / fthresh)</span>
+0039 <span class="comment">%             'inv'   -&gt; 1 / fdist</span>
+0040 <span class="comment">% nret      - [0] the number of documents to return, 0 to return all</span>
+0041 <span class="comment">%             nearest neighbors</span>
+0042 <span class="comment">% ovlponly  - [1] return only documents with overlapping documents, or all</span>
+0043 <span class="comment">%             documents. If ovlponly=0 and nret=0, then nret is set</span>
+0044 <span class="comment">%             to the number of documents in the inverted file, and a matrix</span>
+0045 <span class="comment">%             is returned</span>
+0046 <span class="comment">% verbose   - [0] verbose or not</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">% OUTPUTS</span>
+0049 <span class="comment">% -------</span>
+0050 <span class="comment">% ids       - the sorted ids of nearest documents, either a cell array (if</span>
+0051 <span class="comment">%             nret==0 or ovlponly==0) or a matrix [nretXndocs].</span>
+0052 <span class="comment">%             0 ids means empty id.</span>
+0053 <span class="comment">% dists     - the distances to nearest documents</span>
+0054 <span class="comment">%</span>
+0055 <span class="comment">% See also ccvInvFileInsert ccvInvFileLoad ccvInvFileSave</span>
+0056 <span class="comment">% ccvInvFileClean ccvInvFileCompStats</span>
+0057 <span class="comment">%</span>
+0058   
+0059 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0060 <span class="comment">% Date: October 6, 2010</span>
+0061 
+0062 <span class="keyword">if</span> ~exist(<span class="string">'weight'</span>,<span class="string">'var'</span>) || isempty(weight), weight = <span class="string">'none'</span>; <span class="keyword">end</span>;
+0063 <span class="keyword">if</span> ~exist(<span class="string">'norm'</span>,<span class="string">'var'</span>) || isempty(norm), norm = <span class="string">'none'</span>; <span class="keyword">end</span>;
+0064 <span class="keyword">if</span> ~exist(<span class="string">'dist'</span>,<span class="string">'var'</span>) || isempty(dist), dist = <span class="string">'l1'</span>; <span class="keyword">end</span>;
+0065 
+0066 <span class="keyword">if</span> ~exist(<span class="string">'fdist'</span>,<span class="string">'var'</span>) || isempty(fdist), fdist = <span class="string">'l2'</span>; <span class="keyword">end</span>;
+0067 <span class="keyword">if</span> ~exist(<span class="string">'fthresh'</span>,<span class="string">'var'</span>) || isempty(fthresh), fthresh = 0; <span class="keyword">end</span>;
+0068 <span class="keyword">if</span> ~exist(<span class="string">'ftype'</span>,<span class="string">'var'</span>) || isempty(ftype), ftype = <span class="string">'bin'</span>; <span class="keyword">end</span>;
+0069 
+0070 <span class="keyword">if</span> ~exist(<span class="string">'nret'</span>,<span class="string">'var'</span>) || isempty(nret), nret = 0; <span class="keyword">end</span>;
+0071 <span class="keyword">if</span> ~exist(<span class="string">'ovlponly'</span>,<span class="string">'var'</span>) || isempty(ovlponly), ovlponly = 1; <span class="keyword">end</span>;
+0072 <span class="keyword">if</span> ~exist(<span class="string">'verbose'</span>,<span class="string">'var'</span>) || isempty(verbose), verbose = 0; <span class="keyword">end</span>;
+0073 
+0074 <span class="comment">%call the mex file</span>
+0075 [ids dists] = mxInvFileExtraSearch(ivf, data, dfeats, sfeats, <span class="keyword">...</span>
+0076   weight, norm, dist, fdist, fthresh, ftype, nret, ovlponly, verbose);
+0077</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of DEMO</title>
+  <meta name="keywords" content="DEMO">
+  <meta name="description" content="DEMO a demo script to show typical usage">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; DEMO.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>DEMO
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>DEMO a demo script to show typical usage</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function DEMO </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> DEMO a demo script to show typical usage</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">ccvBowGetDict</a>	CCVBOWGETDICT computes the dictionary given the input data</li><li><a href="ccvBowGetWords.html" class="code" title="function dwords = ccvBowGetWords(words, data, locs, gws)">ccvBowGetWords</a>	CCVBOWGETWORDS computes word quantizations for the input data using the</li><li><a href="ccvBowGetWordsClean.html" class="code" title="function ccvBowGetWordsClean(gws)">ccvBowGetWordsClean</a>	CCVBOWGETWORDSCLEAN cleans memory after computing word quantizations</li><li><a href="ccvBowGetWordsInit.html" class="code" title="function gws = ccvBowGetWordsInit(words, type, cluster, tparams, cparams)">ccvBowGetWordsInit</a>	CCVBOWGETWORDSINIT initializes quantizing words e.g. returns the kd-tree</li><li><a href="ccvHkmClean.html" class="code" title="function ccvHkmClean(hkm)">ccvHkmClean</a>	CCVHKMCLEAN clears the memory for teh input hkm</li><li><a href="ccvHkmCreate.html" class="code" title="function hkm = ccvHkmCreate(data, ni, nl, nb, dist, usekdt, ntrees, nchecks,nkdtrees, varrange, meanrange, cycle, maxbins, sample)">ccvHkmCreate</a>	CCVHKMCREATE creates a hierarchical k-means structure. It can also</li><li><a href="ccvHkmKnn.html" class="code" title="function [ids, dists] = ccvHkmKnn(hkm, data, sdata, k, nchecks)">ccvHkmKnn</a>	CCVHKMKNN returns the k-nearest neighbors from the input sdata to the</li><li><a href="ccvInvFileClean.html" class="code" title="function ccvInvFileClean(ivf)">ccvInvFileClean</a>	CCVINVFILECLEAN cleans the memory of the input ivf</li><li><a href="ccvInvFileCompStats.html" class="code" title="function ccvInvFileCompStats(ivf, weight, norm)">ccvInvFileCompStats</a>	CCVINVFILECOMPSTATS computes stats for the input inverted file, so that</li><li><a href="ccvInvFileInsert.html" class="code" title="function ivf = ccvInvFileInsert(ivf, data, nwords, idshift)">ccvInvFileInsert</a>	CCVINVFILEFILL inserts data to an inverted file structure</li><li><a href="ccvInvFileSearch.html" class="code" title="function [ids dists] = ccvInvFileSearch(ivf, data, weight, norm, dist, nret,ovlponly, verbose)">ccvInvFileSearch</a>	CCVINVFILESEARCH searches the inverted file structure for the input data</li><li><a href="ccvKdtClean.html" class="code" title="function ccvKdtClean(kdt)">ccvKdtClean</a>	CCVKDTCLEAN cleans the memory for the input kd-tree</li><li><a href="ccvKdtCreate.html" class="code" title="function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim)">ccvKdtCreate</a>	CCVKDTCREATE creates a randomized Kd-tree / Kd-forest</li><li><a href="ccvKdtKnn.html" class="code" title="function [ids, dists] = ccvKdtKnn(kdt, kdtData, sData, k, tData)">ccvKdtKnn</a>	CCVKDTKNN searches the KD-Tree for the k-nearest neighbors for the input</li><li><a href="ccvLshClean.html" class="code" title="function ccvLshClean(lsh)">ccvLshClean</a>	CCVLSHCLEAN cleans the input lsh</li><li><a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a>	CCVLSHCREATE creates an LSH index</li><li><a href="ccvLshInsert.html" class="code" title="function ccvLshInsert(lsh, points, idshift)">ccvLshInsert</a>	CCVLSHINSERT inserts data into the Lsh index</li><li><a href="ccvLshKnn.html" class="code" title="function [ids, dists] = ccvLshKnn(lsh, lshData, sData, k, dist)">ccvLshKnn</a>	CCVLSHKNN returns the ids of the k-nearest neighbor points</li><li><a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>	CCVRANDSEED will set/restore the seed for the defeault random stream</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function bag_of_words()</a></li><li><a href="#_sub2" class="code">function full_representation()</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function DEMO</a>
+0002 <span class="comment">% DEMO a demo script to show typical usage</span>
+0003 
+0004 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0005 <span class="comment">% Date: October 6, 2010</span>
+0006 
+0007 <span class="comment">% Bag of Words demo</span>
+0008 <a href="#_sub1" class="code" title="subfunction bag_of_words()">bag_of_words</a>();
+0009 
+0010 <span class="comment">% Full Representation</span>
+0011 <a href="#_sub2" class="code" title="subfunction full_representation()">full_representation</a>();
+0012 
+0013 <span class="comment">%--------------------------------------------------------------------------</span>
+0014 <span class="comment">% Bag of Words</span>
+0015 <span class="comment">%--------------------------------------------------------------------------</span>
+0016 <a name="_sub1" href="#_subfunctions" class="code">function bag_of_words()</a>
+0017 
+0018 <span class="comment">% set seed</span>
+0019 old_seed = <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(123, <span class="string">'set'</span>);
+0020 
+0021 <span class="comment">% define some constants</span>
+0022 fprintf(<span class="string">'Creating features\n'</span>);
+0023 num_images = 100;
+0024 features_per_image = 1000;
+0025 dim = 128;
+0026 num_features = num_images * features_per_image;
+0027 
+0028 <span class="comment">% create some random features</span>
+0029 features = uint8(ceil(rand(dim, num_features) * 255));
+0030 labels = reshape(repmat(uint32(1:num_images), features_per_image, 1), [], 1)';
+0031 
+0032 <span class="comment">% build the dictionary</span>
+0033 dict_type = <span class="string">'akmeans'</span>; <span class="comment">% try also 'hkmeans'</span>
+0034 fprintf(<span class="string">'Building the dictionary: %s\n'</span>, dict_type);
+0035 <span class="comment">%%</span>
+0036 <span class="keyword">switch</span> dict_type
+0037   <span class="comment">% create an AKM dictionary</span>
+0038   <span class="keyword">case</span> <span class="string">'akmeans'</span>
+0039     num_words = 100;
+0040     num_iterations = 5;
+0041     num_trees = 2;
+0042     dict_params =  {num_iterations, <span class="string">'kdt'</span>, num_trees};
+0043 
+0044   <span class="comment">% create an HKM dictionary</span>
+0045   <span class="keyword">case</span> <span class="string">'hkmeans'</span>
+0046     num_words = 100;
+0047     num_iterations = 5;
+0048     num_levels = 2;
+0049     num_branches = 10;
+0050     dict_params = {num_iterations, num_levels, num_branches};
+0051 <span class="keyword">end</span>; <span class="comment">% switch</span>
+0052 
+0053 <span class="comment">% build the dictionary</span>
+0054 dict_words = <a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">ccvBowGetDict</a>(features, [], [], num_words, <span class="string">'flat'</span>, dict_type, <span class="keyword">...</span>
+0055   [], dict_params);
+0056 
+0057 <span class="comment">%%</span>
+0058 <span class="comment">% get the words for the features: words is a cell array with an entry for</span>
+0059 <span class="comment">% every image, which contains the word id for every feature</span>
+0060 fprintf(<span class="string">'Computing the words\n'</span>);
+0061 dict = <a href="ccvBowGetWordsInit.html" class="code" title="function gws = ccvBowGetWordsInit(words, type, cluster, tparams, cparams)">ccvBowGetWordsInit</a>(dict_words, <span class="string">'flat'</span>, dict_type, [], dict_params);
+0062 words = cell(1, num_images);
+0063 <span class="keyword">for</span> i=1:num_images
+0064   words{i} = <a href="ccvBowGetWords.html" class="code" title="function dwords = ccvBowGetWords(words, data, locs, gws)">ccvBowGetWords</a>(dict_words, features(:,labels==i), [], dict);
+0065 <span class="keyword">end</span>;
+0066 <a href="ccvBowGetWordsClean.html" class="code" title="function ccvBowGetWordsClean(gws)">ccvBowGetWordsClean</a>(dict);
+0067 
+0068 <span class="comment">%%</span>
+0069 <span class="comment">% create an inverted file for the images</span>
+0070 fprintf(<span class="string">'Creating and searching an inverted file\n'</span>);
+0071 if_weight = <span class="string">'none'</span>;
+0072 if_norm = <span class="string">'l1'</span>;
+0073 if_dist = <span class="string">'l1'</span>;
+0074 inv_file = <a href="ccvInvFileInsert.html" class="code" title="function ivf = ccvInvFileInsert(ivf, data, nwords, idshift)">ccvInvFileInsert</a>([], words, num_words);
+0075 <a href="ccvInvFileCompStats.html" class="code" title="function ccvInvFileCompStats(ivf, weight, norm)">ccvInvFileCompStats</a>(inv_file, if_weight, if_norm);
+0076 
+0077 <span class="comment">% search for the first two</span>
+0078 [ids dists] = <a href="ccvInvFileSearch.html" class="code" title="function [ids dists] = ccvInvFileSearch(ivf, data, weight, norm, dist, nret,ovlponly, verbose)">ccvInvFileSearch</a>(inv_file, words(1:2), if_weight, if_norm, <span class="keyword">...</span>
+0079   if_dist, 5)
+0080 
+0081 <span class="comment">% clear inv file</span>
+0082 <a href="ccvInvFileClean.html" class="code" title="function ccvInvFileClean(ivf)">ccvInvFileClean</a>(inv_file);
+0083 
+0084 <span class="comment">% restore seed</span>
+0085 <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(old_seed, <span class="string">'restore'</span>);
+0086 
+0087 <span class="comment">%%</span>
+0088 <span class="comment">% Min-Hash LSH index</span>
+0089 fprintf(<span class="string">'Creating and searching a Min-Hash LSH index\n'</span>);
+0090 ntables = 3;
+0091 nfuncs = 2;
+0092 dist = <span class="string">'jac'</span>;
+0093 
+0094 <span class="comment">% create and insert</span>
+0095 lsh = <a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a>(ntables, nfuncs, <span class="string">'min-hash'</span>, dist, 0, 0, 0, 100);
+0096 <a href="ccvLshInsert.html" class="code" title="function ccvLshInsert(lsh, points, idshift)">ccvLshInsert</a>(lsh, words, 0);
+0097 
+0098 <span class="comment">% search for first two</span>
+0099 [ids dists] = <a href="ccvLshKnn.html" class="code" title="function [ids, dists] = ccvLshKnn(lsh, lshData, sData, k, dist)">ccvLshKnn</a>(lsh, words, words(1:2), 5, dist)
+0100 
+0101 <span class="comment">% clear</span>
+0102 <a href="ccvLshClean.html" class="code" title="function ccvLshClean(lsh)">ccvLshClean</a>(lsh);
+0103 
+0104 <span class="keyword">end</span> <span class="comment">% bag_of_words function</span>
+0105 
+0106 <span class="comment">%--------------------------------------------------------------------------</span>
+0107 <span class="comment">% Full Representation</span>
+0108 <span class="comment">%--------------------------------------------------------------------------</span>
+0109 <a name="_sub2" href="#_subfunctions" class="code">function full_representation()</a>
+0110 <span class="comment">%%</span>
+0111 <span class="comment">% set seed</span>
+0112 old_seed = <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(123, <span class="string">'set'</span>);
+0113 
+0114 <span class="comment">% define some constants</span>
+0115 fprintf(<span class="string">'Creating features\n'</span>);
+0116 num_images = 100;
+0117 features_per_image = 1000;
+0118 dim = 128;
+0119 num_features = num_images * features_per_image;
+0120 
+0121 <span class="comment">% create some random features</span>
+0122 features = uint8(ceil(rand(dim, num_features) * 255));
+0123 labels = reshape(repmat(uint32(1:num_images), features_per_image, 1), [], 1)';
+0124 
+0125 <span class="comment">% types of Nearest Neighbor search methods</span>
+0126 nn_types = {<span class="string">'kdt'</span>, <span class="string">'hkm'</span>, <span class="string">'lsh-l2'</span>, <span class="string">'lsh-simplex'</span>};
+0127 
+0128 <span class="keyword">for</span> nni=1:length(nn_types);
+0129 <span class="comment">%</span>
+0130   <span class="comment">% get the type</span>
+0131   type = nn_types{nni};
+0132   
+0133   <span class="comment">% create the index</span>
+0134   fprintf(<span class="string">'\nCreating index %d: %s\n'</span>, nni, type);
+0135   <span class="keyword">switch</span> type
+0136     <span class="comment">% Kd-Tree</span>
+0137     <span class="keyword">case</span> <span class="string">'kdt'</span>
+0138       ntrees = 4;
+0139       index = <a href="ccvKdtCreate.html" class="code" title="function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim)">ccvKdtCreate</a>(features, ntrees);
+0140 
+0141     <span class="comment">% Hierarchical K-Means</span>
+0142     <span class="keyword">case</span> <span class="string">'hkm'</span>
+0143       nlevels = 4;
+0144       nbranches = 10;
+0145       niterations = 20;
+0146       index = <a href="ccvHkmCreate.html" class="code" title="function hkm = ccvHkmCreate(data, ni, nl, nb, dist, usekdt, ntrees, nchecks,nkdtrees, varrange, meanrange, cycle, maxbins, sample)">ccvHkmCreate</a>(features, niterations, nlevels, nbranches);
+0147       
+0148     <span class="comment">% LSH-L2</span>
+0149     <span class="keyword">case</span> <span class="string">'lsh-l2'</span>
+0150       ntables = 4;
+0151       nfuncs = 20;
+0152       index = <a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a>(ntables, nfuncs, <span class="string">'l2'</span>, <span class="string">'l2'</span>, 1, dim, .1, 1000);
+0153       <a href="ccvLshInsert.html" class="code" title="function ccvLshInsert(lsh, points, idshift)">ccvLshInsert</a>(index, features);
+0154       
+0155     <span class="comment">% LSH-Simplex</span>
+0156     <span class="keyword">case</span> <span class="string">'lsh-simplex'</span>
+0157       ntables = 4;
+0158       nfuncs = 2;
+0159       index = <a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a>(ntables, nfuncs, <span class="string">'sph-sim'</span>, <span class="string">'l2'</span>, 1, dim, .1, 1000);
+0160       <a href="ccvLshInsert.html" class="code" title="function ccvLshInsert(lsh, points, idshift)">ccvLshInsert</a>(index, features);
+0161   <span class="keyword">end</span>; <span class="comment">% switch</span>
+0162   
+0163   <span class="comment">% get nearest neighbors for features</span>
+0164   fprintf(<span class="string">'Searching for first image\n'</span>);
+0165   <span class="keyword">switch</span> type
+0166     <span class="keyword">case</span> <span class="string">'kdt'</span>
+0167       [nnids nndists] = <a href="ccvKdtKnn.html" class="code" title="function [ids, dists] = ccvKdtKnn(kdt, kdtData, sData, k, tData)">ccvKdtKnn</a>(index, features, features(:,labels==1), 2);
+0168     <span class="keyword">case</span> <span class="string">'hkm'</span>
+0169       [nnids nndists] = <a href="ccvHkmKnn.html" class="code" title="function [ids, dists] = ccvHkmKnn(hkm, data, sdata, k, nchecks)">ccvHkmKnn</a>(index, features, features(:,labels==1), 2);
+0170     <span class="keyword">case</span> {<span class="string">'lsh-l2'</span>, <span class="string">'lsh-simplex'</span>}
+0171       [nnids nndists] = <a href="ccvLshKnn.html" class="code" title="function [ids, dists] = ccvLshKnn(lsh, lshData, sData, k, dist)">ccvLshKnn</a>(index, features, features(:,labels==1), 2);
+0172   <span class="keyword">end</span>; <span class="comment">% switch</span>
+0173   
+0174   <span class="comment">% get image with maximum number of features</span>
+0175   nnlabels = labels(nnids(1,:));
+0176   counts = histc(nnlabels, 1:num_images);
+0177   [counts cids] = sort(counts, <span class="string">'descend'</span>);
+0178   counts(1), cids(1)
+0179   
+0180   <span class="comment">% destroy the index</span>
+0181   <span class="keyword">switch</span> type
+0182     <span class="keyword">case</span> <span class="string">'kdt'</span>
+0183       <a href="ccvKdtClean.html" class="code" title="function ccvKdtClean(kdt)">ccvKdtClean</a>(index);
+0184     <span class="keyword">case</span> <span class="string">'hkm'</span>
+0185       <a href="ccvHkmClean.html" class="code" title="function ccvHkmClean(hkm)">ccvHkmClean</a>(index);
+0186     <span class="keyword">case</span> {<span class="string">'lsh-l2'</span>, <span class="string">'lsh-simplex'</span>}
+0187       <a href="ccvLshClean.html" class="code" title="function ccvLshClean(lsh)">ccvLshClean</a>(index);
+0188   <span class="keyword">end</span>; <span class="comment">% switch</span>
+0189 <span class="keyword">end</span>; <span class="comment">% for nni</span>
+0190 
+0191 <span class="comment">% restore the seed</span>
+0192 <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(old_seed, <span class="string">'restore'</span>);
+0193 
+0194 <span class="keyword">end</span> <span class="comment">% full_representation function</span>
+0195 
+0196 <span class="keyword">end</span> <span class="comment">% DEMO function</span></pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

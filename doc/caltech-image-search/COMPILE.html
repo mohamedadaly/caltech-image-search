@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of COMPILE</title>
+  <meta name="keywords" content="COMPILE">
+  <meta name="description" content="COMPILE compiles the mex files">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; COMPILE.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>COMPILE
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>COMPILE compiles the mex files</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> COMPILE compiles the mex files</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% COMPILE compiles the mex files</span>
+0002 
+0003 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0004 <span class="comment">% Date: October 6, 2010</span>
+0005 
+0006 <span class="comment">%% Normalization</span>
+0007 fprintf(<span class="string">'Compiling Normalization\n'</span>);
+0008 mex -g -O -largeArrayDims mxNormalize.cpp ccNormalize.cpp
+0009 mex -g -O -largeArrayDims mxNorm.cpp ccNormalize.cpp
+0010 
+0011 <span class="comment">%% inverted file</span>
+0012 fprintf(<span class="string">'Compiling Inverted File\n'</span>);
+0013 mex -g -O mxInvFileFill.cpp ccInvertedFile.cpp
+0014 mex -g -O mxInvFileFillData.cpp ccInvertedFile.cpp
+0015 mex -g -O mxInvFileLoad.cpp ccInvertedFile.cpp
+0016 mex -g -O mxInvFileSave.cpp ccInvertedFile.cpp
+0017 mex -g -O mxInvFileClean.cpp ccInvertedFile.cpp
+0018 mex -g -O mxInvFileCompStats.cpp ccInvertedFile.cpp
+0019 mex -g -O mxInvFileSearch.cpp ccInvertedFile.cpp
+0020 
+0021 <span class="comment">%% inverted file extra</span>
+0022 fprintf(<span class="string">'Compiling Inverted File Extra\n'</span>);
+0023 mex -g -O mxInvFileExtraFill.cpp ccInvertedFileExtra.cpp ccDistance.cpp
+0024 mex -g -O mxInvFileExtraCompStats.cpp ccInvertedFileExtra.cpp ccDistance.cpp
+0025 mex -g -O mxInvFileExtraClean.cpp ccInvertedFileExtra.cpp ccDistance.cpp
+0026 mex -g -O mxInvFileExtraSearch.cpp ccInvertedFileExtra.cpp ccDistance.cpp
+0027 
+0028 <span class="comment">% mex -g -O mxInvFileFillData.cpp ccInvertedFile.cpp</span>
+0029 <span class="comment">% mex -g -O mxInvFileLoad.cpp ccInvertedFile.cpp</span>
+0030 <span class="comment">% mex -g -O mxInvFileSave.cpp ccInvertedFile.cpp</span>
+0031 
+0032 <span class="comment">%% LSH</span>
+0033 fprintf(<span class="string">'Compiling LSH\n'</span>);
+0034 mex -g -O -largeArrayDims mxLshCreate.cpp ccLsh.cpp ccDistance.cpp
+0035 mex -g -O -largeArrayDims mxLshInsert.cpp ccLsh.cpp ccDistance.cpp
+0036 mex -g -O -largeArrayDims mxLshSearch.cpp ccLsh.cpp ccDistance.cpp
+0037 mex -g -O -largeArrayDims mxLshBucketId.cpp ccLsh.cpp ccDistance.cpp
+0038 mex -g -O -largeArrayDims mxLshFuncVal.cpp ccLsh.cpp ccDistance.cpp
+0039 mex -g -O -largeArrayDims mxLshBucketPoints.cpp ccLsh.cpp ccDistance.cpp
+0040 
+0041 mex -g -O -largeArrayDims mxLshKnn.cpp ccLsh.cpp ccDistance.cpp
+0042 
+0043 mex -g -O -largeArrayDims mxLshClean.cpp ccLsh.cpp ccDistance.cpp
+0044 
+0045 mex -g -O -largeArrayDims mxLshSave.cpp ccLsh.cpp ccDistance.cpp
+0046 mex -g -O -largeArrayDims mxLshLoad.cpp ccLsh.cpp ccDistance.cpp
+0047 mex -g -O -largeArrayDims mxLshStats.cpp ccLsh.cpp ccDistance.cpp
+0048 
+0049 <span class="comment">%% Kdtree</span>
+0050 fprintf(<span class="string">'Compiling Kdt\n'</span>);
+0051 mex -g -O mxKdtCreate.cpp ccKdt.cpp ccDistance.cpp
+0052 mex -g -O mxKdtKnn.cpp ccKdt.cpp ccDistance.cpp
+0053 mex -g -O mxKdtPoints.cpp ccKdt.cpp ccDistance.cpp
+0054 mex -g -O mxKdtClean.cpp ccKdt.cpp ccDistance.cpp
+0055 
+0056 <span class="comment">%% HKmeans</span>
+0057 fprintf(<span class="string">'Compiling Hkm\n'</span>);
+0058 mex -g -O mxHkmCreate.cpp ccHKmeans.cpp ccDistance.cpp ccKdt.cpp
+0059 mex -g -O mxHkmExport.cpp ccHKmeans.cpp ccDistance.cpp ccKdt.cpp
+0060 mex -g -O mxHkmImport.cpp ccHKmeans.cpp ccDistance.cpp ccKdt.cpp
+0061 mex -g -O mxHkmKnn.cpp ccHKmeans.cpp ccDistance.cpp ccKdt.cpp
+0062 mex -g -O mxHkmLeafIds.cpp ccHKmeans.cpp ccDistance.cpp ccKdt.cpp
+0063 mex -g -O mxHkmClean.cpp ccHKmeans.cpp ccDistance.cpp ccKdt.cpp
+0064 
+0065 <span class="comment">%% Sum indexed</span>
+0066 mex -g -O mxSumIndexed.cpp
+0067 
+0068 <span class="comment">%% Distance</span>
+0069 fprintf(<span class="string">'Compiling Distance\n'</span>);
+0070 mex -g -O -largeArrayDims mxDistance.cpp ccDistance.cpp
+0071 mex -g -O -largeArrayDims mxKnn.cpp ccDistance.cpp
+0072 
+0073 fprintf(<span class="string">'All files compiled successfully\n'</span>);
+0074</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvBowSpCheck</title>
+  <meta name="keywords" content="ccvBowSpCheck">
+  <meta name="description" content="CCVBOWSPCHECK performs a spatial check on the input images with their">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvBowSpCheck.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvBowSpCheck
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVBOWSPCHECK performs a spatial check on the input images with their</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [rids, dists, inliers] = ccvBowSpCheck(testLocs, testWords,trainLocs, trainWords, ids, params) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVBOWSPCHECK performs a spatial check on the input images with their
+ nearest neighbors
+ 
+ INPUTS
+ ------
+ testLocs    - the locations of features in the test image
+ testWords   - the words for the features in the test image
+ trainLocs   - cell array of locations in training images
+ trainWords  - cell array of words in training images
+ ids         - ids of images in train to consider
+ params      - the extra parameters passed to ccvRansacAffine
+
+ OUTPUTS
+ -------
+ rids        - the sorted list of ids
+ dists       - mean of distances of inliers
+ inliers     - number of inliers
+
+ See also ccvRansacAffine</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [rids, dists, inliers] = ccvBowSpCheck(testLocs, testWords, </a><span class="keyword">...</span>
+0002   trainLocs, trainWords, ids, params)
+0003 <span class="comment">% CCVBOWSPCHECK performs a spatial check on the input images with their</span>
+0004 <span class="comment">% nearest neighbors</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% INPUTS</span>
+0007 <span class="comment">% ------</span>
+0008 <span class="comment">% testLocs    - the locations of features in the test image</span>
+0009 <span class="comment">% testWords   - the words for the features in the test image</span>
+0010 <span class="comment">% trainLocs   - cell array of locations in training images</span>
+0011 <span class="comment">% trainWords  - cell array of words in training images</span>
+0012 <span class="comment">% ids         - ids of images in train to consider</span>
+0013 <span class="comment">% params      - the extra parameters passed to ccvRansacAffine</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% OUTPUTS</span>
+0016 <span class="comment">% -------</span>
+0017 <span class="comment">% rids        - the sorted list of ids</span>
+0018 <span class="comment">% dists       - mean of distances of inliers</span>
+0019 <span class="comment">% inliers     - number of inliers</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% See also ccvRansacAffine</span>
+0022 <span class="comment">%</span>
+0023 
+0024 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0025 <span class="comment">% Date: October 6, 2010</span>
+0026 
+0027 nids = length(ids);
+0028 
+0029 <span class="comment">%init dists with Inf</span>
+0030 dists = Inf*ones(1, nids);
+0031 inliers = zeros(1, nids);
+0032 
+0033 <span class="comment">%loop on the train images</span>
+0034 <span class="keyword">for</span> t=1:nids
+0035   id = ids(t);
+0036   <span class="keyword">if</span> id==0, <span class="keyword">continue</span>; <span class="keyword">end</span>;
+0037   
+0038   <span class="comment">%get matches</span>
+0039   matches = [];
+0040   <span class="comment">%get common words</span>
+0041   cws = intersect(testWords, trainWords{id}); cws = cws(:)';
+0042   <span class="comment">%loop on common words</span>
+0043   <span class="keyword">for</span> w=cws
+0044     [ii,jj] = meshgrid(find(testWords==w), find(trainWords{id}==w));
+0045     matches = [matches [ii(:)'; jj(:)']];
+0046   <span class="keyword">end</span>;
+0047   
+0048   <span class="comment">%check if we have enough matches</span>
+0049   <span class="keyword">if</span> size(matches,2)&lt;params{3}, <span class="keyword">continue</span>; <span class="keyword">end</span>;
+0050       
+0051   <span class="comment">%fit affine transformation</span>
+0052   [h, score, ninliers, inind] = ccvRansacAffine(testLocs, trainLocs{id}, matches, params{:});
+0053   
+0054   <span class="comment">%get rid of duplicates</span>
+0055 <span class="comment">%   ninliers = length(unique(matches(1,inind)));</span>
+0056   
+0057   <span class="comment">%save score</span>
+0058   <span class="keyword">if</span> ~isempty(h)
+0059     dists(t) = score;
+0060     inliers(t) = ninliers;
+0061   <span class="keyword">end</span>;
+0062 <span class="keyword">end</span>; <span class="comment">%for t</span>
+0063 
+0064 <span class="comment">%sort based on mean distance</span>
+0065 <span class="comment">% [dists, ii] = sort(dists, 'ascend');</span>
+0066 <span class="comment">% inliers = inliers(ii);</span>
+0067 [inliers ii] = sort(inliers, <span class="string">'descend'</span>);
+0068 dists = dists(ii);
+0069 rids = ids(ii);
+0070 
+0071</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

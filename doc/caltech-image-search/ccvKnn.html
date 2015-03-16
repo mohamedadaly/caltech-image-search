@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvKnn</title>
+  <meta name="keywords" content="ccvKnn">
+  <meta name="description" content="CCVKNN gets the K nearest neighbors for each point in data1 to each point">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvKnn.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvKnn
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVKNN gets the K nearest neighbors for each point in data1 to each point</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [ids, dists] = ccvKnn(data1, data2, k, dist, mex) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVKNN gets the K nearest neighbors for each point in data1 to each point
+ in data2
+
+ INPUTS
+ ------
+ data1     - input data 1
+ data2     - input data 2, one point per column
+ k         - the number of nearest neighbors
+ dist      - ['l2'] the distance function to use
+             'hamming' -&gt; hamming distance
+             'l1'      -&gt; L1 distance (city block)
+             'l2'      -&gt; L2 euclidean distance
+             'arccos'  -&gt; arccos distance
+             'cos'     -&gt; cosine distance
+             'bhat'    -&gt; Bhattatcharya Coefficient
+             'kl'      -&gt; Symmetric Kullback-Leibler divergence
+ mex       - [1] use the mex implementation or not
+
+ OUTPUTS
+ -------
+ ids       - the outpout indices of the nearest neighbors, with one column
+             per point in data1 [k, n1]
+ dists     - the output distances to the nearest neighbors sorted
+             ascendingly, with one column per point in data1 [k, n1]</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ccvDistance.html" class="code" title="function dists = ccvDistance(data1, data2, dist, mex)">ccvDistance</a>	CCVDISTANCE computes distance from the given point to the given data</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">ccvBowGetDict</a>	CCVBOWGETDICT computes the dictionary given the input data</li><li><a href="ccvBowGetWords.html" class="code" title="function dwords = ccvBowGetWords(words, data, locs, gws)">ccvBowGetWords</a>	CCVBOWGETWORDS computes word quantizations for the input data using the</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [ids, dists] = ccvKnn(data1, data2, k, dist, mex)</a>
+0002 <span class="comment">% CCVKNN gets the K nearest neighbors for each point in data1 to each point</span>
+0003 <span class="comment">% in data2</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% INPUTS</span>
+0006 <span class="comment">% ------</span>
+0007 <span class="comment">% data1     - input data 1</span>
+0008 <span class="comment">% data2     - input data 2, one point per column</span>
+0009 <span class="comment">% k         - the number of nearest neighbors</span>
+0010 <span class="comment">% dist      - ['l2'] the distance function to use</span>
+0011 <span class="comment">%             'hamming' -&gt; hamming distance</span>
+0012 <span class="comment">%             'l1'      -&gt; L1 distance (city block)</span>
+0013 <span class="comment">%             'l2'      -&gt; L2 euclidean distance</span>
+0014 <span class="comment">%             'arccos'  -&gt; arccos distance</span>
+0015 <span class="comment">%             'cos'     -&gt; cosine distance</span>
+0016 <span class="comment">%             'bhat'    -&gt; Bhattatcharya Coefficient</span>
+0017 <span class="comment">%             'kl'      -&gt; Symmetric Kullback-Leibler divergence</span>
+0018 <span class="comment">% mex       - [1] use the mex implementation or not</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% OUTPUTS</span>
+0021 <span class="comment">% -------</span>
+0022 <span class="comment">% ids       - the outpout indices of the nearest neighbors, with one column</span>
+0023 <span class="comment">%             per point in data1 [k, n1]</span>
+0024 <span class="comment">% dists     - the output distances to the nearest neighbors sorted</span>
+0025 <span class="comment">%             ascendingly, with one column per point in data1 [k, n1]</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">%</span>
+0028 
+0029 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0030 <span class="comment">% Date: October 6, 2010</span>
+0031 
+0032 <span class="keyword">if</span> nargin&lt;4 || isempty(dist),   dist = <span class="string">'l2'</span>; <span class="keyword">end</span>;
+0033 <span class="keyword">if</span> nargin&lt;5 || isempty(mex),    mex = 1; <span class="keyword">end</span>;
+0034 
+0035 
+0036 <span class="comment">%call mex file if exists</span>
+0037 <span class="keyword">if</span> mex &amp;&amp; exist([<span class="string">'mxKnn.'</span> mexext], <span class="string">'file'</span>)
+0038   [dists, ids] = mxKnn(data1, data2, k, dist);
+0039 <span class="comment">%   ids = single(ids);</span>
+0040   
+0041 <span class="keyword">else</span>
+0042   <span class="comment">%get distance</span>
+0043   dists = <a href="ccvDistance.html" class="code" title="function dists = ccvDistance(data1, data2, dist, mex)">ccvDistance</a>(data1, data2, dist, 1);
+0044   
+0045   <span class="comment">%sort</span>
+0046   [dists, ids] = sort(dists, 1, <span class="string">'ascend'</span>);
+0047   
+0048   <span class="comment">%return only first k</span>
+0049   dists = dists(1:k,:);
+0050   ids = ids(1:k, :);
+0051 <span class="keyword">end</span>;
+0052</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

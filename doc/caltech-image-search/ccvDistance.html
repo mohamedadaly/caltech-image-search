@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvDistance</title>
+  <meta name="keywords" content="ccvDistance">
+  <meta name="description" content="CCVDISTANCE computes distance from the given point to the given data">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvDistance.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvDistance
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVDISTANCE computes distance from the given point to the given data</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function dists = ccvDistance(data1, data2, dist, mex) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVDISTANCE computes distance from the given point to the given data
+
+ INPUTS
+ ------
+ data1     - input data 1
+ data2     - input data 2, one point per column
+ dist      - ['l2'] the distance function to use
+             'hamming' -&gt; hamming distance
+             'l1'      -&gt; L1 distance (city block)
+             'l2'      -&gt; L2 euclidean distance
+             'arccos'  -&gt; arccos distance
+             'cos'     -&gt; cosine distance
+             'bhat'    -&gt; Bhattatcharya Coefficient
+             'kl'      -&gt; Symmetric Kullback-Leibler divergence
+ mex       - [1] use the mex implementation or not
+
+ OUTPUTS
+ -------
+ dists     - the output distances to every point in data1 to every point
+             in data2, with one column per point in data1</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ccvKnn.html" class="code" title="function [ids, dists] = ccvKnn(data1, data2, k, dist, mex)">ccvKnn</a>	CCVKNN gets the K nearest neighbors for each point in data1 to each point</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function dists = ccvDistance(data1, data2, dist, mex)</a>
+0002 <span class="comment">% CCVDISTANCE computes distance from the given point to the given data</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% INPUTS</span>
+0005 <span class="comment">% ------</span>
+0006 <span class="comment">% data1     - input data 1</span>
+0007 <span class="comment">% data2     - input data 2, one point per column</span>
+0008 <span class="comment">% dist      - ['l2'] the distance function to use</span>
+0009 <span class="comment">%             'hamming' -&gt; hamming distance</span>
+0010 <span class="comment">%             'l1'      -&gt; L1 distance (city block)</span>
+0011 <span class="comment">%             'l2'      -&gt; L2 euclidean distance</span>
+0012 <span class="comment">%             'arccos'  -&gt; arccos distance</span>
+0013 <span class="comment">%             'cos'     -&gt; cosine distance</span>
+0014 <span class="comment">%             'bhat'    -&gt; Bhattatcharya Coefficient</span>
+0015 <span class="comment">%             'kl'      -&gt; Symmetric Kullback-Leibler divergence</span>
+0016 <span class="comment">% mex       - [1] use the mex implementation or not</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% OUTPUTS</span>
+0019 <span class="comment">% -------</span>
+0020 <span class="comment">% dists     - the output distances to every point in data1 to every point</span>
+0021 <span class="comment">%             in data2, with one column per point in data1</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%</span>
+0024 
+0025 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0026 <span class="comment">% Date: October 6, 2010</span>
+0027 
+0028 <span class="keyword">if</span> nargin&lt;3 || isempty(dist),   dist = <span class="string">'l2'</span>; <span class="keyword">end</span>;
+0029 <span class="keyword">if</span> nargin&lt;4 || isempty(mex),    mex = 1; <span class="keyword">end</span>;
+0030 
+0031 <span class="keyword">if</span> isempty(data1) || isempty(data2), dists = []; <span class="keyword">return</span>; <span class="keyword">end</span>;
+0032 
+0033 <span class="comment">%call the mex file</span>
+0034 <span class="keyword">if</span> mex &amp;&amp; exist([<span class="string">'mxDistance.'</span> mexext], <span class="string">'file'</span>)
+0035   dists = mxDistance(data1, data2, dist);
+0036 <span class="comment">%matlab implementation</span>
+0037 <span class="keyword">else</span>
+0038   [ndims1, npoints1] = size(data1);
+0039   [ndims2, npoints2] = size(data2);
+0040   
+0041   dists = zeros(npoints2, npoints1);
+0042   
+0043   <span class="comment">%loop on points</span>
+0044   <span class="keyword">for</span> p=1:npoints1
+0045     point = data1(:,p);
+0046     
+0047     <span class="comment">%replicate the point</span>
+0048     pcmp = repmat(point, 1, npoints2);
+0049 
+0050     <span class="comment">%compute distances</span>
+0051     <span class="keyword">switch</span> dist
+0052       <span class="keyword">case</span> <span class="string">'hamming'</span>, d = sum(xor(pcmp, data2), 1);
+0053       <span class="keyword">case</span> <span class="string">'l1'</span>,      d = sum(abs(pcmp - data2), 1);
+0054       <span class="keyword">case</span> <span class="string">'l2'</span>,      d = sqrt(sum((pcmp - data2).^2, 1));
+0055       <span class="keyword">case</span> {<span class="string">'arccos'</span>,<span class="string">'cos'</span>},  
+0056         d = point' * data2;
+0057         d2 = diag(data2'*data2);
+0058         d = d ./ sqrt(point'*point * d2');
+0059         <span class="keyword">if</span> strcmp(dist,<span class="string">'arccos'</span>), d = acos(d); <span class="keyword">end</span>;
+0060       <span class="keyword">case</span> <span class="string">'bhat'</span>,    d = -log2(sum(sqrt(pcmp .* data2),1));
+0061       <span class="keyword">case</span> <span class="string">'kl'</span>,      
+0062         d = sum(pcmp .* log2(pcmp ./ data2)) + sum(data2 .* log2(data2 ./ pcmp));
+0063         d = d /2;
+0064     <span class="keyword">end</span>;
+0065   <span class="keyword">end</span>;
+0066   <span class="comment">%put back</span>
+0067   dists(:,p) = d(:);
+0068 
+0069 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

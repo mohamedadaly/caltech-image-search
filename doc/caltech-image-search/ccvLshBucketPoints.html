@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvLshBucketPoints</title>
+  <meta name="keywords" content="ccvLshBucketPoints">
+  <meta name="description" content="CCVLSHBUCKETPOINTS returns the ids of points in input buckets">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvLshBucketPoints.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvLshBucketPoints
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVLSHBUCKETPOINTS returns the ids of points in input buckets</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function ids = ccvLshBucketPoints(lsh, buckets, table, nret) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVLSHBUCKETPOINTS returns the ids of points in input buckets
+
+ INPUTS
+ ------
+ lsh       - the input lsh
+ buckets   - a vector of input bucket ids
+ table     - the table id, where the first table is 1. If empty or 0, then
+             buckets must be [ntablesxnbuckets] where ntables is the
+             number of tables in the LSH index.
+ nret      - [0] the number of ids to return per point, or 0 to return all
+             points
+
+ OUTPUTS
+ -------
+ ids       - the output ids, either a cell array of one vector per bucket
+             (if nret==0) or a matrix of [nretXnbuckets]
+
+ See also <a href="ccvLshClean.html" class="code" title="function ccvLshClean(lsh)">ccvLshClean</a> <a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a> <a href="ccvLshInsert.html" class="code" title="function ccvLshInsert(lsh, points, idshift)">ccvLshInsert</a> <a href="ccvLshLoad.html" class="code" title="function lsh = ccvLshLoad(file)">ccvLshLoad</a> <a href="ccvLshSave.html" class="code" title="function ccvLshSave(lsh, file)">ccvLshSave</a>
+ <a href="ccvLshBucketId.html" class="code" title="function ids = ccvLshBucketId(lsh, points)">ccvLshBucketId</a> <a href="ccvLshFuncVal.html" class="code" title="function vals = ccvLshFuncVal(lsh, points, cellout)">ccvLshFuncVal</a> <a href="ccvLshStats.html" class="code" title="function [stats, meanStats] = ccvLshStats(lsh)">ccvLshStats</a> <a href="ccvLshSearch.html" class="code" title="function ids = ccvLshSearch(lsh, points, nret)">ccvLshSearch</a> <a href="ccvLshKnn.html" class="code" title="function [ids, dists] = ccvLshKnn(lsh, lshData, sData, k, dist)">ccvLshKnn</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function ids = ccvLshBucketPoints(lsh, buckets, table, nret)</a>
+0002 <span class="comment">% CCVLSHBUCKETPOINTS returns the ids of points in input buckets</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% INPUTS</span>
+0005 <span class="comment">% ------</span>
+0006 <span class="comment">% lsh       - the input lsh</span>
+0007 <span class="comment">% buckets   - a vector of input bucket ids</span>
+0008 <span class="comment">% table     - the table id, where the first table is 1. If empty or 0, then</span>
+0009 <span class="comment">%             buckets must be [ntablesxnbuckets] where ntables is the</span>
+0010 <span class="comment">%             number of tables in the LSH index.</span>
+0011 <span class="comment">% nret      - [0] the number of ids to return per point, or 0 to return all</span>
+0012 <span class="comment">%             points</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% OUTPUTS</span>
+0015 <span class="comment">% -------</span>
+0016 <span class="comment">% ids       - the output ids, either a cell array of one vector per bucket</span>
+0017 <span class="comment">%             (if nret==0) or a matrix of [nretXnbuckets]</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% See also ccvLshClean ccvLshCreate ccvLshInsert ccvLshLoad ccvLshSave</span>
+0020 <span class="comment">% ccvLshBucketId ccvLshFuncVal ccvLshStats ccvLshSearch ccvLshKnn</span>
+0021 <span class="comment">%</span>
+0022 
+0023 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0024 <span class="comment">% Date: October 6, 2010</span>
+0025 
+0026 <span class="comment">%default</span>
+0027 <span class="keyword">if</span> ~exist(<span class="string">'nret'</span>,<span class="string">'var'</span>) || isempty(nret), nret = 0; <span class="keyword">end</span>;
+0028 
+0029 <span class="comment">%call the mex file</span>
+0030 ids = mxLshBucketPoints(lsh, buckets, table-1, nret);
+0031</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvHkmCreate</title>
+  <meta name="keywords" content="ccvHkmCreate">
+  <meta name="description" content="CCVHKMCREATE creates a hierarchical k-means structure. It can also">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvHkmCreate.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvHkmCreate
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVHKMCREATE creates a hierarchical k-means structure. It can also</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function hkm = ccvHkmCreate(data, ni, nl, nb, dist, usekdt, ntrees, nchecks,nkdtrees, varrange, meanrange, cycle, maxbins, sample) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVHKMCREATE creates a hierarchical k-means structure. It can also
+ implement Approximate K-means (when levels = 1 and usekdt=1) or normal
+ K-means (when levels=1 and usekdt=0)
+
+ INPUTS
+ ------
+ data      - the input data
+ ni        - [100] the number of iterations
+ nl        - [1] number of levels
+ nb        - [5] number of branches i.e. branching factor per level
+ dist      - 'l2' the distance function to use
+ usekdt    - [0] use a kd-tree or exhaustive search for k-means
+ ntrees    - [1] number of HKM trees to use
+ nchecks   - [ntrees] number of backtracking steps to use
+ nkdtrees  - [4] the number of trees
+ varrange  - [0.8] the range for variance within the max to choose the dimension from
+ meanrange - [0] the range of mean to choose from
+ cycle     - [0] cycle through the dimensions or just choose the max
+ maxbins   - [50] the maximum number of bins to use for searching kd-trees
+ sample    - [250] the number of samples to use to estimate the variance 
+             0 means use all points
+
+ OUTPUTS
+ -------
+ hkm       - the output structure
+
+ See also <a href="ccvHkmImport.html" class="code" title="function hkm = ccvHkmImport(mhkm)">ccvHkmImport</a> <a href="ccvHkmExport.html" class="code" title="function mhkm = ccvHkmExport(hkm, getids)">ccvHkmExport</a> <a href="ccvHkmClean.html" class="code" title="function ccvHkmClean(hkm)">ccvHkmClean</a> <a href="ccvHkmKnn.html" class="code" title="function [ids, dists] = ccvHkmKnn(hkm, data, sdata, k, nchecks)">ccvHkmKnn</a> <a href="ccvHkmLeafIds.html" class="code" title="function lids = ccvHkmLeafIds(hkm, data)">ccvHkmLeafIds</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="DEMO.html" class="code" title="function DEMO">DEMO</a>	DEMO a demo script to show typical usage</li><li><a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">ccvBowGetDict</a>	CCVBOWGETDICT computes the dictionary given the input data</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function hkm = ccvHkmCreate(data, ni, nl, nb, dist, usekdt, ntrees, nchecks, </a><span class="keyword">...</span>
+0002   nkdtrees, varrange, meanrange, cycle, maxbins, sample)
+0003 <span class="comment">% CCVHKMCREATE creates a hierarchical k-means structure. It can also</span>
+0004 <span class="comment">% implement Approximate K-means (when levels = 1 and usekdt=1) or normal</span>
+0005 <span class="comment">% K-means (when levels=1 and usekdt=0)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% INPUTS</span>
+0008 <span class="comment">% ------</span>
+0009 <span class="comment">% data      - the input data</span>
+0010 <span class="comment">% ni        - [100] the number of iterations</span>
+0011 <span class="comment">% nl        - [1] number of levels</span>
+0012 <span class="comment">% nb        - [5] number of branches i.e. branching factor per level</span>
+0013 <span class="comment">% dist      - 'l2' the distance function to use</span>
+0014 <span class="comment">% usekdt    - [0] use a kd-tree or exhaustive search for k-means</span>
+0015 <span class="comment">% ntrees    - [1] number of HKM trees to use</span>
+0016 <span class="comment">% nchecks   - [ntrees] number of backtracking steps to use</span>
+0017 <span class="comment">% nkdtrees  - [4] the number of trees</span>
+0018 <span class="comment">% varrange  - [0.8] the range for variance within the max to choose the dimension from</span>
+0019 <span class="comment">% meanrange - [0] the range of mean to choose from</span>
+0020 <span class="comment">% cycle     - [0] cycle through the dimensions or just choose the max</span>
+0021 <span class="comment">% maxbins   - [50] the maximum number of bins to use for searching kd-trees</span>
+0022 <span class="comment">% sample    - [250] the number of samples to use to estimate the variance</span>
+0023 <span class="comment">%             0 means use all points</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">% OUTPUTS</span>
+0026 <span class="comment">% -------</span>
+0027 <span class="comment">% hkm       - the output structure</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">% See also ccvHkmImport ccvHkmExport ccvHkmClean ccvHkmKnn ccvHkmLeafIds</span>
+0030 <span class="comment">%</span>
+0031 
+0032 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0033 <span class="comment">% Date: October 6, 2010</span>
+0034 
+0035 <span class="comment">%defaults</span>
+0036 <span class="keyword">if</span> ~exist(<span class="string">'ni'</span>,<span class="string">'var'</span>) || isempty(ni), ni = 100; <span class="keyword">end</span>;
+0037 <span class="keyword">if</span> ~exist(<span class="string">'nl'</span>,<span class="string">'var'</span>) || isempty(nl), nl = 1; <span class="keyword">end</span>;
+0038 <span class="keyword">if</span> ~exist(<span class="string">'nb'</span>,<span class="string">'var'</span>) || isempty(nb), nb = 5; <span class="keyword">end</span>;
+0039 <span class="keyword">if</span> ~exist(<span class="string">'usekdt'</span>,<span class="string">'var'</span>) || isempty(usekdt), usekdt = 0; <span class="keyword">end</span>;
+0040 <span class="keyword">if</span> ~exist(<span class="string">'dist'</span>,<span class="string">'var'</span>) || isempty(dist), dist = <span class="string">'l2'</span>; <span class="keyword">end</span>;
+0041 <span class="keyword">if</span> ~exist(<span class="string">'ntrees'</span>,<span class="string">'var'</span>) || isempty(ntrees), ntrees = 1; <span class="keyword">end</span>;
+0042 <span class="keyword">if</span> ~exist(<span class="string">'nchecks'</span>,<span class="string">'var'</span>) || isempty(nchecks), nchecks = ntrees; <span class="keyword">end</span>;
+0043 
+0044 <span class="keyword">if</span> ~exist(<span class="string">'nkdtrees'</span>,<span class="string">'var'</span>) || isempty(nkdtrees), nkdtrees = 4; <span class="keyword">end</span>;
+0045 <span class="keyword">if</span> ~exist(<span class="string">'varrange'</span>,<span class="string">'var'</span>) || isempty(varrange), varrange = 0.8; <span class="keyword">end</span>;
+0046 <span class="keyword">if</span> ~exist(<span class="string">'meanrange'</span>,<span class="string">'var'</span>) || isempty(meanrange), meanrange = 0; <span class="keyword">end</span>;
+0047 <span class="keyword">if</span> ~exist(<span class="string">'cycle'</span>,<span class="string">'var'</span>) || isempty(cycle), cycle = 0; <span class="keyword">end</span>;
+0048 <span class="keyword">if</span> ~exist(<span class="string">'maxbins'</span>,<span class="string">'var'</span>) || isempty(maxbins), maxbins = 50; <span class="keyword">end</span>;
+0049 <span class="keyword">if</span> ~exist(<span class="string">'sample'</span>,<span class="string">'var'</span>) || isempty(sample), sample = 250; <span class="keyword">end</span>;
+0050    
+0051 <span class="comment">%call the mex file</span>
+0052 hkm = mxHkmCreate(data, ni, nl, nb, dist, ntrees, nchecks, <span class="keyword">...</span>
+0053   usekdt, nkdtrees, varrange, meanrange, cycle, maxbins, sample);
+0054</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

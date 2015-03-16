@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvBowGetWords</title>
+  <meta name="keywords" content="ccvBowGetWords">
+  <meta name="description" content="CCVBOWGETWORDS computes word quantizations for the input data using the">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvBowGetWords.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvBowGetWords
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVBOWGETWORDS computes word quantizations for the input data using the</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function dwords = ccvBowGetWords(words, data, locs, gws) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVBOWGETWORDS computes word quantizations for the input data using the 
+ input words computed from ccvBowGetDict
+ 
+ INPUTS
+ ------
+ words   - the words used to create the dictionary, input to ccvBowGetDict
+ data    - the input data to get words for, one point per column [ndimsXnpoints]
+ locs    - the locations for the data points [2Xnpoints]
+ gws     - the GetWords strcture to use, output from ccvBowGetWordsInit
+
+ OUTPUTS
+ -------
+ dwords   - the output words for the input data
+
+ See also <a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">ccvBowGetDict</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ccvHkmLeafIds.html" class="code" title="function lids = ccvHkmLeafIds(hkm, data)">ccvHkmLeafIds</a>	CCVHKMLEAFIDS returns the leaf ids for the input data. The leaf ids range</li><li><a href="ccvKdtKnn.html" class="code" title="function [ids, dists] = ccvKdtKnn(kdt, kdtData, sData, k, tData)">ccvKdtKnn</a>	CCVKDTKNN searches the KD-Tree for the k-nearest neighbors for the input</li><li><a href="ccvKnn.html" class="code" title="function [ids, dists] = ccvKnn(data1, data2, k, dist, mex)">ccvKnn</a>	CCVKNN gets the K nearest neighbors for each point in data1 to each point</li><li><a href="ccvLshBucketId.html" class="code" title="function ids = ccvLshBucketId(lsh, points)">ccvLshBucketId</a>	CCVLSHBUCKETID returns the bucket ids for the input ponits</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="DEMO.html" class="code" title="function DEMO">DEMO</a>	DEMO a demo script to show typical usage</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function w = getWords(words, data, dict, cluster)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function dwords = ccvBowGetWords(words, data, locs, gws)</a>
+0002 <span class="comment">% CCVBOWGETWORDS computes word quantizations for the input data using the</span>
+0003 <span class="comment">% input words computed from ccvBowGetDict</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% INPUTS</span>
+0006 <span class="comment">% ------</span>
+0007 <span class="comment">% words   - the words used to create the dictionary, input to ccvBowGetDict</span>
+0008 <span class="comment">% data    - the input data to get words for, one point per column [ndimsXnpoints]</span>
+0009 <span class="comment">% locs    - the locations for the data points [2Xnpoints]</span>
+0010 <span class="comment">% gws     - the GetWords strcture to use, output from ccvBowGetWordsInit</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% OUTPUTS</span>
+0013 <span class="comment">% -------</span>
+0014 <span class="comment">% dwords   - the output words for the input data</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% See also ccvBowGetDict</span>
+0017 <span class="comment">%</span>
+0018 
+0019 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0020 <span class="comment">% Date: October 6, 2010</span>
+0021 
+0022 
+0023 <span class="keyword">switch</span> gws.type
+0024   <span class="comment">%flat dictionary</span>
+0025   <span class="keyword">case</span> <span class="string">'flat'</span>
+0026     <span class="comment">%cluster</span>
+0027     dwords = <a href="#_sub1" class="code" title="subfunction w = getWords(words, data, dict, cluster)">getWords</a>(words, data, gws.dict, gws.cluster);
+0028     
+0029   <span class="keyword">case</span> <span class="string">'lsh-multi'</span>
+0030     <span class="comment">%get bucket ids</span>
+0031     dwords = <a href="#_sub1" class="code" title="subfunction w = getWords(words, data, dict, cluster)">getWords</a>(words, data, gws.dict, gws.cluster);
+0032     <span class="comment">%now dwords is ntablesXnpoints matrix, mod by singlek and concat</span>
+0033     dwords = mod(double(dwords)-1, words.tparams.singlek)+1;
+0034     dwords = dwords + repmat(cumsum([0; words.tparams.singlek*ones(size(dwords,1)-1,1)]), 1, size(dwords,2));
+0035     dwords = uint32(dwords(:));
+0036     
+0037   <span class="comment">%multiple</span>
+0038   <span class="keyword">case</span> <span class="string">'multiple'</span>
+0039     
+0040     
+0041   <span class="comment">%per-class</span>
+0042   <span class="keyword">case</span> <span class="string">'per-class'</span>
+0043     <span class="comment">%loop and get words</span>
+0044     dwords = cell(1, length(gws.dict));
+0045     <span class="keyword">for</span> c=1:length(gws.dict)
+0046       dwords{c} = <a href="#_sub1" class="code" title="subfunction w = getWords(words, data, dict, cluster)">getWords</a>(words, data, gws.dict{c}, gws.cluster); 
+0047     <span class="keyword">end</span>;
+0048     dwords = cell2mat(dwords);
+0049     
+0050 
+0051 <span class="keyword">end</span>; <span class="comment">%switch type</span>
+0052 
+0053 
+0054 
+0055 <span class="comment">% -----------------------------------------------------------------------</span>
+0056 <span class="comment">% clusters the input data</span>
+0057 <a name="_sub1" href="#_subfunctions" class="code">function w = getWords(words, data, dict, cluster)</a>
+0058 
+0059 <span class="keyword">switch</span> cluster
+0060   <span class="keyword">case</span> <span class="string">'akmeans'</span>
+0061     w = <a href="ccvKdtKnn.html" class="code" title="function [ids, dists] = ccvKdtKnn(kdt, kdtData, sData, k, tData)">ccvKdtKnn</a>(dict, words, data, 1);
+0062     
+0063   <span class="keyword">case</span> <span class="string">'lsh'</span>
+0064     <span class="comment">%get the bucket ids</span>
+0065     w = <a href="ccvLshBucketId.html" class="code" title="function ids = ccvLshBucketId(lsh, points)">ccvLshBucketId</a>(dict.lsh, data);
+0066     
+0067 <span class="comment">%     %get ids of inputs if there, otherwise get closest one</span>
+0068 <span class="comment">%     nin = find(ismember(w, dict.ids)==0);</span>
+0069 <span class="comment">%     for i=nin(:)'</span>
+0070 <span class="comment">%       ii = find(dict.ids&gt;w(i), 1, 'first');</span>
+0071 <span class="comment">%       if isempty(ii), ii = length(dict.ids); end;</span>
+0072 <span class="comment">%       w(i) = dict.ids(ii);</span>
+0073 <span class="comment">%     end;</span>
+0074 <span class="comment">%</span>
+0075 <span class="comment">%     %take mod the number of words</span>
+0076 <span class="comment">%     w = uint32(mod(double(w), dict.nwords) + 1);</span>
+0077 
+0078   <span class="keyword">case</span> <span class="string">'xkmeans'</span>
+0079     <span class="comment">%compute signatures for data</span>
+0080     rsig = eval(sprintf(<span class="string">'%s(ccvLshBucketId(dict.lsh, data));'</span>,dict.class));
+0081     datasig = zeros(1, size(data,2), dict.class);
+0082     <span class="keyword">for</span> i=1:dict.ndir
+0083       datasig = bitor(bitshift(datasig,1), rsig(i,:));
+0084     <span class="keyword">end</span>;
+0085     
+0086     <span class="comment">%get nearest mean: words</span>
+0087     w = <a href="ccvKnn.html" class="code" title="function [ids, dists] = ccvKnn(data1, data2, k, dist, mex)">ccvKnn</a>(datasig, words.meanssig,1,<span class="string">'xor'</span>);
+0088         
+0089   <span class="keyword">case</span> <span class="string">'hkmeans'</span>
+0090     <span class="comment">%get the leaf ids</span>
+0091     w = <a href="ccvHkmLeafIds.html" class="code" title="function lids = ccvHkmLeafIds(hkm, data)">ccvHkmLeafIds</a>(dict, data);
+0092     
+0093    <span class="comment">%convert to column vector</span>
+0094    w = w(:);
+0095 <span class="keyword">end</span>; <span class="comment">%switch cluster</span></pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

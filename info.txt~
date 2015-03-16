@@ -1,0 +1,16 @@
+# file list
+ls -1 *.cpp *.hpp *.m > file-list.txt
+
+# make the zip file
+zip -9 caltech-image-search.zip *.m *.hpp *.cpp README.txt
+cp caltech-image-search.zip ~/web/malaa/software/research/image-search/
+
+# create documentation
+# go to parent directory in matlab
+>> pwd
+ .../caltech-image-search
+>> cd ..
+>> m2html('mfiles','caltech-image-search', 'htmldir','caltech-image-search/doc');
+# copy to homepage
+cp -R doc ~/web/malaa/software/research/image-search/
+

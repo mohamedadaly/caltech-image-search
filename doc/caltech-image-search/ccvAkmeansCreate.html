@@ -1,0 +1,403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvAkmeansCreate</title>
+  <meta name="keywords" content="ccvAkmeansCreate">
+  <meta name="description" content="CCVAKMEANS computes kmeans clustering on the input data using">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvAkmeansCreate.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvAkmeansCreate
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVAKMEANS computes kmeans clustering on the input data using</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [akmeans] = ccvAkmeansCreate(data, k, maxiter, type, ntrees,varrange, meanrange, maxdepth, minvar, cycle, dist, maxbins,sample, mex, matlabout, seed, verbose) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVAKMEANS computes kmeans clustering on the input data using 
+ approximate nearest neighbors computed using randomized kd-trees
+
+ Inputs:
+ -------
+ data        - the input data, with one column per data point
+ k           - the number of means required
+ maxiter     - [1000] max number of iterations to go for
+ type        - ['kdt'] the type of Kdtree implementation to use
+               'kdt'    -&gt; use ccvKdt* functions
+ ntrees      - [1] the number of trees to generate
+ varrange    - [0.8] the range of variance to choose for when randomizing
+ meanrange   - [0] the range of mean to choose for when randomizing
+ maxdepth    - [0] the maximum depth of the tree, unlimited if 0 or empty
+ minvar      - [0] the minimum variance that must be there to split the
+               node
+ cycle       - [0] whether to cycle through dimensions before repeating (1),
+               or reuse them regardless (0)
+ dist        - ['l2'] the distance function to use
+               'hamming' -&gt; hamming distance
+               'l1'      -&gt; L1 distance (city block)
+               'l2'      -&gt; L2 euclidean distance
+               'arccos'  -&gt; arccos distance
+               'cos'     -&gt; cosine distance
+               'xor'     -&gt; hamming distance for packed binary inputs
+ maxbins     - [25] the maximum number of bins to consider. It looks up
+               in the set of trees and adds branches in a priority queue
+               for all trees, ranked according to their distance from the
+               decision boundary, and then expands them in turn. If &quot;0&quot;,
+               the default is the number of trees.
+ sample      - [200] the size of the random sample to use to get the mean
+               and variance estimate at each node. 0 means don't sample
+ mex         - [1] use the mex interface instead of the matlab interface
+ matlabout   - [1] use the matlab output or the mex output if using the
+               mex interface i.e. return the kdt as a matlab array of
+               nodes or return the pointers
+ verbose     - [1] print messages or not
+ 
+ Outputs:
+ --------
+ akmeans     - the return structure
+
+ See also <a href="ccvAkmeansLookup.html" class="code" title="function [ids, dists] = ccvAkmeansLookup(akmeans, searchdata)">CCVAKMEANSLOOKUP</a>, <a href="ccvAkmeansClean.html" class="code" title="function akmeans = ccvAkmeansClean(akmeans)">CCVAKMEANSCLEAN</a>, <a href="ccvKdtCreate.html" class="code" title="function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim)">CCVKDTCREATE</a>, <a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">CCVBOWGETDICT</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ccvKdtClean.html" class="code" title="function ccvKdtClean(kdt)">ccvKdtClean</a>	CCVKDTCLEAN cleans the memory for the input kd-tree</li><li><a href="ccvKdtCreate.html" class="code" title="function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim)">ccvKdtCreate</a>	CCVKDTCREATE creates a randomized Kd-tree / Kd-forest</li><li><a href="ccvKdtKnn.html" class="code" title="function [ids, dists] = ccvKdtKnn(kdt, kdtData, sData, k, tData)">ccvKdtKnn</a>	CCVKDTKNN searches the KD-Tree for the k-nearest neighbors for the input</li><li><a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>	CCVRANDSEED will set/restore the seed for the defeault random stream</li><li><a href="ccvSumIndexed.html" class="code" title="function [dsum, dhist] = ccvSumIndexed(data, ids, k)">ccvSumIndexed</a>	CCVSUMINDEXED sums input points in data that are indexed by ids and puts</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">ccvBowGetDict</a>	CCVBOWGETDICT computes the dictionary given the input data</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [akmeans] = ccvAkmeansCreate(data, k, maxiter, type, ntrees, </a><span class="keyword">...</span>
+0002   varrange, meanrange, maxdepth, minvar, cycle, dist, maxbins, <span class="keyword">...</span>
+0003   sample, mex, matlabout, seed, verbose)
+0004 <span class="comment">% CCVAKMEANS computes kmeans clustering on the input data using</span>
+0005 <span class="comment">% approximate nearest neighbors computed using randomized kd-trees</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Inputs:</span>
+0008 <span class="comment">% -------</span>
+0009 <span class="comment">% data        - the input data, with one column per data point</span>
+0010 <span class="comment">% k           - the number of means required</span>
+0011 <span class="comment">% maxiter     - [1000] max number of iterations to go for</span>
+0012 <span class="comment">% type        - ['kdt'] the type of Kdtree implementation to use</span>
+0013 <span class="comment">%               'kdt'    -&gt; use ccvKdt* functions</span>
+0014 <span class="comment">% ntrees      - [1] the number of trees to generate</span>
+0015 <span class="comment">% varrange    - [0.8] the range of variance to choose for when randomizing</span>
+0016 <span class="comment">% meanrange   - [0] the range of mean to choose for when randomizing</span>
+0017 <span class="comment">% maxdepth    - [0] the maximum depth of the tree, unlimited if 0 or empty</span>
+0018 <span class="comment">% minvar      - [0] the minimum variance that must be there to split the</span>
+0019 <span class="comment">%               node</span>
+0020 <span class="comment">% cycle       - [0] whether to cycle through dimensions before repeating (1),</span>
+0021 <span class="comment">%               or reuse them regardless (0)</span>
+0022 <span class="comment">% dist        - ['l2'] the distance function to use</span>
+0023 <span class="comment">%               'hamming' -&gt; hamming distance</span>
+0024 <span class="comment">%               'l1'      -&gt; L1 distance (city block)</span>
+0025 <span class="comment">%               'l2'      -&gt; L2 euclidean distance</span>
+0026 <span class="comment">%               'arccos'  -&gt; arccos distance</span>
+0027 <span class="comment">%               'cos'     -&gt; cosine distance</span>
+0028 <span class="comment">%               'xor'     -&gt; hamming distance for packed binary inputs</span>
+0029 <span class="comment">% maxbins     - [25] the maximum number of bins to consider. It looks up</span>
+0030 <span class="comment">%               in the set of trees and adds branches in a priority queue</span>
+0031 <span class="comment">%               for all trees, ranked according to their distance from the</span>
+0032 <span class="comment">%               decision boundary, and then expands them in turn. If &quot;0&quot;,</span>
+0033 <span class="comment">%               the default is the number of trees.</span>
+0034 <span class="comment">% sample      - [200] the size of the random sample to use to get the mean</span>
+0035 <span class="comment">%               and variance estimate at each node. 0 means don't sample</span>
+0036 <span class="comment">% mex         - [1] use the mex interface instead of the matlab interface</span>
+0037 <span class="comment">% matlabout   - [1] use the matlab output or the mex output if using the</span>
+0038 <span class="comment">%               mex interface i.e. return the kdt as a matlab array of</span>
+0039 <span class="comment">%               nodes or return the pointers</span>
+0040 <span class="comment">% verbose     - [1] print messages or not</span>
+0041 <span class="comment">%</span>
+0042 <span class="comment">% Outputs:</span>
+0043 <span class="comment">% --------</span>
+0044 <span class="comment">% akmeans     - the return structure</span>
+0045 <span class="comment">%</span>
+0046 <span class="comment">% See also CCVAKMEANSLOOKUP, CCVAKMEANSCLEAN, CCVKDTCREATE, CCVBOWGETDICT</span>
+0047 <span class="comment">%</span>
+0048 
+0049 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0050 <span class="comment">% Date: October 6, 2010</span>
+0051 
+0052 
+0053 <span class="keyword">if</span> nargin&lt;3 || isempty(maxiter),    maxiter = 1000;   <span class="keyword">end</span>;
+0054 <span class="keyword">if</span> nargin&lt;4 || isempty(type),       type = <span class="string">'kdt'</span>;  <span class="keyword">end</span>;
+0055 <span class="keyword">if</span> nargin&lt;5 || isempty(ntrees),     ntrees = 1;       <span class="keyword">end</span>;
+0056 <span class="keyword">if</span> nargin&lt;6 || isempty(varrange),   varrange = 0.8;     <span class="keyword">end</span>;
+0057 <span class="keyword">if</span> nargin&lt;7 || isempty(meanrange),  meanrange = 0;    <span class="keyword">end</span>;
+0058 <span class="keyword">if</span> nargin&lt;8 || isempty(maxdepth),   maxdepth = 0;     <span class="keyword">end</span>;
+0059 <span class="keyword">if</span> nargin&lt;9 || isempty(minvar),     minvar = 0;       <span class="keyword">end</span>;
+0060 <span class="keyword">if</span> nargin&lt;10 || isempty(cycle),     cycle = 0;       <span class="keyword">end</span>;
+0061 <span class="keyword">if</span> nargin&lt;11 || isempty(dist),      dist = <span class="string">'l2'</span>;      <span class="keyword">end</span>;
+0062 <span class="keyword">if</span> nargin&lt;12 || isempty(maxbins),   maxbins = 25; <span class="keyword">end</span>;
+0063 <span class="keyword">if</span> nargin&lt;13 || isempty(sample),    sample = 200;       <span class="keyword">end</span>;
+0064 <span class="keyword">if</span> nargin&lt;14 || isempty(mex),       mex = 1;          <span class="keyword">end</span>;
+0065 <span class="keyword">if</span> nargin&lt;15 || isempty(matlabout), matlabout = 0;    <span class="keyword">end</span>;
+0066 <span class="keyword">if</span> nargin&lt;17 || isempty(verbose),     verbose = 1;      <span class="keyword">end</span>;
+0067 
+0068 <span class="keyword">if</span> ~exist(<span class="string">'seed'</span>,<span class="string">'var'</span>), seed = 123; <span class="keyword">end</span>;
+0069 
+0070 <span class="comment">%temp file</span>
+0071 <span class="keyword">global</span> tempdictfile
+0072 temp = false;
+0073 <span class="keyword">if</span> ~isempty(tempdictfile), temp = true; <span class="keyword">end</span>;
+0074 
+0075 parallel = 0;
+0076 <span class="keyword">try</span> <span class="keyword">if</span> matlabpool(<span class="string">'size'</span>)&gt;0, parallel=1; <span class="keyword">end</span>; <span class="keyword">catch</span> <span class="keyword">end</span>;
+0077 
+0078 <span class="comment">%size</span>
+0079 <span class="keyword">if</span> strcmp(class(data),<span class="string">'Composite'</span>)
+0080   spmd [ndims npoints]=size(data); npoints=gplus(npoints,1); <span class="keyword">end</span>
+0081   ndims = ndims{1};
+0082   npoints = npoints{1};
+0083 <span class="keyword">else</span>
+0084   [ndims, npoints] = size(data);
+0085 <span class="keyword">end</span>;
+0086 
+0087 <span class="keyword">if</span> isdistributed(data)
+0088   dclass= class(gather(data(1)));
+0089 <span class="keyword">elseif</span> strcmp(class(data),<span class="string">'Composite'</span>)
+0090   spmd dclass = class(data); <span class="keyword">end</span>; dclass=dclass{1};
+0091 <span class="keyword">else</span>
+0092   dclass = class(data);
+0093 <span class="keyword">end</span>;
+0094 
+0095 <span class="keyword">if</span> verbose, fprintf(<span class="string">' %d points\n'</span>, npoints); <span class="keyword">end</span>;
+0096 
+0097 <span class="comment">%load means it exist in temp file</span>
+0098 <span class="keyword">if</span> temp &amp;&amp; exist(tempdictfile, <span class="string">'file'</span>)
+0099   tt = load(tempdictfile);
+0100   means = tt.means;
+0101   oldmeans = means;
+0102   mdist = tt.mdist;
+0103   iiter = tt.iter;
+0104   
+0105 <span class="comment">%no temp file, random means</span>
+0106 <span class="keyword">else</span>
+0107   iiter = 0;
+0108   
+0109   <span class="comment">%get initial random means</span>
+0110   rnd = <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(seed, <span class="string">'set'</span>);
+0111   means = randperm(npoints);
+0112   <span class="keyword">if</span> isdistributed(data)
+0113     means = gather(data(:, means(1:k)));
+0114   <span class="keyword">elseif</span> strcmp(class(data), <span class="string">'Composite'</span>)
+0115     spmd 
+0116       [nd np]=size(data);  np=gcat(np); 
+0117       <span class="comment">%codistributor</span>
+0118       codist = codistributor1d(2,np, [nd sum(np)]);
+0119       [s e] = codist.globalIndices(2, labindex);
+0120       <span class="comment">%ids on this lab</span>
+0121       m = means(1:k);
+0122       m = m(m&gt;=s &amp; m&lt;=e);
+0123       means = data(:,m-s+1);
+0124       means=gcat(means);
+0125     <span class="keyword">end</span>;
+0126     means = means{1};
+0127   <span class="keyword">else</span>
+0128     means = data(:, means(1:k));
+0129   <span class="keyword">end</span>;
+0130   oldmeans = means;
+0131   <span class="comment">% meandists = zeros(1, k);</span>
+0132   <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(rnd, <span class="string">'restore'</span>);
+0133 <span class="keyword">end</span>; <span class="comment">%if exist</span>
+0134 
+0135 <span class="comment">%type of kdtree</span>
+0136 <span class="keyword">switch</span> type
+0137   <span class="keyword">case</span> <span class="string">'flann'</span>
+0138     kdt = struct(<span class="string">'nret'</span>,maxbins, <span class="string">'dist'</span>,<span class="string">'l2'</span>, <span class="string">'ntrees'</span>,ntrees, <span class="keyword">...</span>
+0139       <span class="string">'params'</span>,struct(<span class="string">'checks'</span>, maxbins), <span class="string">'flann'</span>,[]);
+0140   <span class="keyword">case</span> <span class="string">'kdt'</span>
+0141     
+0142 <span class="keyword">end</span>;
+0143 
+0144 
+0145 <span class="comment">%init</span>
+0146 <span class="keyword">if</span> parallel
+0147   spmd
+0148     <span class="comment">%distribute</span>
+0149 <span class="comment">%     ddata = codistributed(data, codistributor1d(2));</span>
+0150 <span class="comment">%     ddata = getLocalPart(ddata);</span>
+0151     <span class="keyword">if</span> ~iscodistributed(data) &amp;&amp; isreplicated(data)
+0152       data = codistributed(data, codistributor1d(2));
+0153     <span class="keyword">end</span>;
+0154     <span class="keyword">if</span> iscodistributed(data)
+0155       data = getLocalPart(data);
+0156     <span class="keyword">end</span>
+0157   <span class="keyword">end</span>;
+0158 <span class="keyword">end</span>;
+0159 
+0160 <span class="comment">% diff = zeros(1, k);</span>
+0161 <span class="comment">%loop</span>
+0162 cont = 1;
+0163 iter = iiter+1;
+0164 <span class="keyword">while</span> cont &amp;&amp; iter&lt;=maxiter
+0165   <span class="keyword">if</span> verbose <span class="comment">%&amp;&amp; (iter==1 || ~mod(iter, round(0.1*maxiter)))</span>
+0166     fprintf(1, <span class="string">'  Iter %d: '</span>, iter); 
+0167   <span class="keyword">end</span>;  
+0168   ittic = tic;
+0169   
+0170   <span class="comment">%get rkdtrees for the means</span>
+0171   nntic = tic;
+0172   <span class="keyword">switch</span> type
+0173     <span class="keyword">case</span> <span class="string">'kdt'</span>
+0174       <span class="keyword">if</span> ~parallel
+0175         <span class="comment">%create</span>
+0176         kdt = <a href="ccvKdtCreate.html" class="code" title="function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim)">ccvKdtCreate</a>(means, ntrees, varrange, meanrange, <span class="keyword">...</span>
+0177           maxdepth, minvar, cycle, dist, maxbins, sample);
+0178         <span class="comment">%lookup and get nearest mean to every point</span>
+0179         [ids dists] = <a href="ccvKdtKnn.html" class="code" title="function [ids, dists] = ccvKdtKnn(kdt, kdtData, sData, k, tData)">ccvKdtKnn</a>(kdt, means, data, 1);
+0180       <span class="keyword">else</span>      
+0181 <span class="comment">%         dd = distributed(data);</span>
+0182         spmd
+0183           <span class="comment">%create</span>
+0184           kdt = <a href="ccvKdtCreate.html" class="code" title="function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim)">ccvKdtCreate</a>(means, ntrees, varrange, meanrange, <span class="keyword">...</span>
+0185             maxdepth, minvar, cycle, dist, maxbins, sample);
+0186           <span class="comment">%search</span>
+0187           [ids dists] = <a href="ccvKdtKnn.html" class="code" title="function [ids, dists] = ccvKdtKnn(kdt, kdtData, sData, k, tData)">ccvKdtKnn</a>(kdt, means, data, 1);
+0188 <span class="comment">%           [ii dd] = ccvKdtKnn(kdt, means, getLocalPart(data), 1);</span>
+0189 <span class="comment">%           [ii dd] = ccvKdtKnn(kdt, means, ddata, 1);</span>
+0190           <span class="comment">%clear</span>
+0191           <a href="ccvKdtClean.html" class="code" title="function ccvKdtClean(kdt)">ccvKdtClean</a>(kdt);
+0192         <span class="keyword">end</span>;
+0193 <span class="comment">%         %gather</span>
+0194 <span class="comment">%         ids = cell2mat(ii(:)');</span>
+0195 <span class="comment">%         dists = cell2mat(dd(:)');</span>
+0196       <span class="keyword">end</span>;        
+0197 
+0198     <span class="keyword">case</span> <span class="string">'flann'</span>
+0199       <span class="comment">%create</span>
+0200       kdt.flann = flann_build_index(means, struct(<span class="string">'algorithm'</span>,<span class="string">'kdtree'</span>, <span class="keyword">...</span>
+0201         <span class="string">'trees'</span>,kdt.ntrees, <span class="string">'random_seed'</span>,1234));
+0202       <span class="comment">%lookup</span>
+0203       ids = flann_search(kdt.flann, data, 1, kdt.params);
+0204 <span class="comment">%       %get neatest neighbors</span>
+0205 <span class="comment">%       ids = zeros(1, npoints);</span>
+0206 <span class="comment">%       for i=1:npoints</span>
+0207 <span class="comment">%         [d, ids(i)] = ccvKnn(data(:,i), means(:,res(:,i)), 1, dist);</span>
+0208 <span class="comment">%         ids(i) = res(ids(i),i);</span>
+0209 <span class="comment">%       end;</span>
+0210   <span class="keyword">end</span>;  
+0211   <span class="keyword">if</span> verbose, fprintf(<span class="string">'nn %.2f min '</span>, toc(nntic)/60); <span class="keyword">end</span>;
+0212   
+0213   <span class="comment">%compute new means</span>
+0214   meantic = tic;
+0215   <span class="keyword">if</span> ~parallel
+0216     [meandists,~] = <a href="ccvSumIndexed.html" class="code" title="function [dsum, dhist] = ccvSumIndexed(data, ids, k)">ccvSumIndexed</a>(dists, ids, k);
+0217     <span class="comment">%get sums and divide</span>
+0218     [means hist] = <a href="ccvSumIndexed.html" class="code" title="function [dsum, dhist] = ccvSumIndexed(data, ids, k)">ccvSumIndexed</a>(data, ids, k);
+0219     <span class="comment">%compute means</span>
+0220     means = feval(dclass, single(means) ./ single(repmat(hist, ndims, 1)));
+0221   <span class="keyword">else</span>
+0222     spmd
+0223       <span class="comment">%sum distances</span>
+0224       [md,~] = <a href="ccvSumIndexed.html" class="code" title="function [dsum, dhist] = ccvSumIndexed(data, ids, k)">ccvSumIndexed</a>(dists, ids, k);
+0225       meandists = gop(@plus, md, 1);
+0226       md=[];
+0227       <span class="comment">%reduce</span>
+0228       [m, h] = <a href="ccvSumIndexed.html" class="code" title="function [dsum, dhist] = ccvSumIndexed(data, ids, k)">ccvSumIndexed</a>(data, ids, k);
+0229       means = gop(@plus, m, 1);
+0230       m=[];
+0231 <span class="comment">%       meansl = feval(dclass, meansl);</span>
+0232       hist = gop(@plus, h, 1);  
+0233       h=[];
+0234       <span class="keyword">if</span> labindex==1
+0235         <span class="comment">%compute mean</span>
+0236         means = feval(dclass, means ./ single(repmat(hist, ndims, 1)));
+0237       <span class="keyword">end</span>;
+0238 <span class="comment">%       [m h md] = deal([]);</span>
+0239     <span class="keyword">end</span>;
+0240     <span class="comment">%combine</span>
+0241     hist = hist{1};
+0242     means = means{1};
+0243     meandists = meandists{1};
+0244 <span class="comment">%     clear histl meansl meandistsl</span>
+0245   <span class="keyword">end</span>;
+0246   
+0247 <span class="comment">%   %compute mean</span>
+0248 <span class="comment">%   means = feval(dclass, single(means) ./ single(repmat(hist, ndims, 1)));</span>
+0249   <span class="comment">%check empty means</span>
+0250   em = hist==0;
+0251   means(:,em) = oldmeans(:,em);
+0252 
+0253 <span class="comment">%   parfor m=1:k</span>
+0254 <span class="comment">%     %get ids for this mean</span>
+0255 <span class="comment">%     mids = ids==m;</span>
+0256 <span class="comment">%     %check if empty</span>
+0257 <span class="comment">%     if ~any(mids)</span>
+0258 <span class="comment">%       means(:,m) = oldmeans(:,m);</span>
+0259 <span class="comment">%       meandists(m) = 0;</span>
+0260 <span class="comment">%     else</span>
+0261 <span class="comment">%       means(:,m) = mean(data(:,mids), 2);</span>
+0262 <span class="comment">%       meandists(m) = sum(dists(mids));</span>
+0263 <span class="comment">%     end;</span>
+0264 <span class="comment">%   end;</span>
+0265   <span class="keyword">if</span> verbose, fprintf(<span class="string">'mean %.2f min '</span>, toc(meantic)/60); <span class="keyword">end</span>;
+0266   
+0267   mdist(iter) = mean(meandists);
+0268   
+0269   <span class="keyword">if</span> verbose, fprintf(<span class="string">'dist=%f, total %.2f min %s\n'</span>, mdist(iter), toc(ittic)/60, datestr(now)); <span class="keyword">end</span>;
+0270   
+0271   <span class="comment">%check if done</span>
+0272   <span class="keyword">if</span> (iter&gt;1 &amp;&amp; abs(mdist(iter)-mdist(iter-1))&lt;=1e-4) || iter==maxiter
+0273     cont = 0;
+0274   
+0275   <span class="keyword">else</span>
+0276     <span class="comment">%save to oldmeans</span>
+0277     oldmeans = means; <span class="comment">%     oldids = ids;</span>
+0278     <span class="comment">%clear the kdtree</span>
+0279     <span class="keyword">if</span> ~parallel
+0280       <span class="keyword">switch</span> type
+0281         <span class="keyword">case</span> <span class="string">'kdt'</span>,     <a href="ccvKdtClean.html" class="code" title="function ccvKdtClean(kdt)">ccvKdtClean</a>(kdt);
+0282         <span class="keyword">case</span> <span class="string">'flann'</span>,   flann_free_index(kdt.flann);
+0283       <span class="keyword">end</span>;
+0284     <span class="keyword">end</span>
+0285     
+0286     <span class="comment">%save to temp</span>
+0287     <span class="keyword">if</span> temp      
+0288       save(tempdictfile, <span class="string">'means'</span>,<span class="string">'iter'</span>,<span class="string">'mdist'</span>);
+0289     <span class="keyword">end</span>;
+0290   <span class="keyword">end</span>; 
+0291   
+0292   <span class="comment">%inc iteration</span>
+0293   iter = iter + 1;  
+0294 <span class="keyword">end</span>; <span class="comment">%while</span>
+0295 
+0296 <span class="comment">%build final if parallel</span>
+0297 <span class="keyword">if</span> parallel
+0298   <span class="keyword">switch</span> type
+0299     <span class="keyword">case</span> <span class="string">'kdt'</span>,      
+0300       kdt = <a href="ccvKdtCreate.html" class="code" title="function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim)">ccvKdtCreate</a>(means, ntrees, varrange, meanrange, <span class="keyword">...</span>
+0301           maxdepth, minvar, cycle, dist, maxbins, sample);
+0302     <span class="keyword">case</span> <span class="string">'flann'</span>,   flann_free_index(kdt.flann);
+0303   <span class="keyword">end</span>;
+0304 <span class="keyword">end</span>;
+0305 
+0306 <span class="comment">%delete temp file</span>
+0307 delete(tempdictfile);
+0308 
+0309 akmeans.means = feval(dclass,means);
+0310 akmeans.ids = ids;
+0311 akmeans.type = type;
+0312 akmeans.kdt = kdt;
+0313 
+0314</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

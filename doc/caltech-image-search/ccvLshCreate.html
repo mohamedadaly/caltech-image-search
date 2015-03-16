@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvLshCreate</title>
+  <meta name="keywords" content="ccvLshCreate">
+  <meta name="description" content="CCVLSHCREATE creates an LSH index">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvLshCreate.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvLshCreate
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVLSHCREATE creates an LSH index</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVLSHCREATE creates an LSH index
+
+ INPUTS
+ ------
+ ntables   - [1] the number of tables
+ nfuncs    - [5] the number of hash functions per table
+ htype     - ['l2'] the type of hash function to use
+             'ham' -&gt; use hamming distance, h = x[i]
+             'l1'  -&gt; use l1 distance, h = floor((x[i]-b) / w)
+             'l2'  -&gt; use l2 distance, h = floor((x . r - b) / w)
+             'cos' -&gt; use cons ditance, h = sign(x . r)
+             'min-hash'  -&gt; use min-hash function, h = min(perm(x))
+             'sph-sim'   -&gt; use spherical simplex function
+             'sph-orth'  -&gt; use spherical orthoplex
+             'sph-hyp'   -&gt; use shperical hypercube
+             'bin-gauss' -&gt; binary gaussian kernels
+ dist      - ['l2'] the distance type to use
+             'l1'      -&gt; l1 distance
+             'l2'      -&gt; l2
+             'hamming' -&gt; hamming
+             'cos'     -&gt; dot-product
+             'arcos'   -&gt; acos of dot-product
+             'bhat'    -&gt; Bhattacharya distance
+             'kl'      -&gt; KL-divergence
+             'jac'     -&gt; Jacquard distance
+             'xor'     -&gt; XOR distance for packed binary numbers
+ norm      - [1] normalize or not
+ ndims     - the number of dimensions for the input data
+ w         - [.25] the size of the bin for 'l2' and 'l1' hash functions
+ tsize     - [1000] the size of the table if it's a fixed size table, 
+             or 0 for a variable sized hash table
+ seed      - random seed for input
+ hwidth    - [0] number of bits of every hash value. In case hwidth~=0,
+             the outputs of the different hash functions are OR'ed
+             together at the right place, with function 1 at place
+             nfuncs*hwidth and function N at place 0 (LSB).
+ bitsperdim - [0] number of bits per input dimension. If nonzero, every
+             dimension represents bitsperdim binary bits, in which case,
+             the number of dimensions for Hamming hash function is
+             bitsperdim*ndims. This is useful only for 'ham' hash function.
+
+ OUTPUTS
+ -------
+ lsh       - the output lsh
+
+ See also <a href="ccvLshClean.html" class="code" title="function ccvLshClean(lsh)">ccvLshClean</a> <a href="ccvLshInsert.html" class="code" title="function ccvLshInsert(lsh, points, idshift)">ccvLshInsert</a> <a href="ccvLshLoad.html" class="code" title="function lsh = ccvLshLoad(file)">ccvLshLoad</a> <a href="ccvLshSave.html" class="code" title="function ccvLshSave(lsh, file)">ccvLshSave</a> <a href="ccvLshSearch.html" class="code" title="function ids = ccvLshSearch(lsh, points, nret)">ccvLshSearch</a>
+ <a href="ccvLshBucketId.html" class="code" title="function ids = ccvLshBucketId(lsh, points)">ccvLshBucketId</a> <a href="ccvLshFuncVal.html" class="code" title="function vals = ccvLshFuncVal(lsh, points, cellout)">ccvLshFuncVal</a> <a href="ccvLshStats.html" class="code" title="function [stats, meanStats] = ccvLshStats(lsh)">ccvLshStats</a> <a href="ccvLshBucketPoints.html" class="code" title="function ids = ccvLshBucketPoints(lsh, buckets, table, nret)">ccvLshBucketPoints</a> <a href="ccvLshKnn.html" class="code" title="function [ids, dists] = ccvLshKnn(lsh, lshData, sData, k, dist)">ccvLshKnn</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="DEMO.html" class="code" title="function DEMO">DEMO</a>	DEMO a demo script to show typical usage</li><li><a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">ccvBowGetDict</a>	CCVBOWGETDICT computes the dictionary given the input data</li><li><a href="ccvBowGetWordsInit.html" class="code" title="function gws = ccvBowGetWordsInit(words, type, cluster, tparams, cparams)">ccvBowGetWordsInit</a>	CCVBOWGETWORDSINIT initializes quantizing words e.g. returns the kd-tree</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims, </a><span class="keyword">...</span>
+0002   w, tsize, seed, hwidth, bitsperdim)
+0003 <span class="comment">% CCVLSHCREATE creates an LSH index</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% INPUTS</span>
+0006 <span class="comment">% ------</span>
+0007 <span class="comment">% ntables   - [1] the number of tables</span>
+0008 <span class="comment">% nfuncs    - [5] the number of hash functions per table</span>
+0009 <span class="comment">% htype     - ['l2'] the type of hash function to use</span>
+0010 <span class="comment">%             'ham' -&gt; use hamming distance, h = x[i]</span>
+0011 <span class="comment">%             'l1'  -&gt; use l1 distance, h = floor((x[i]-b) / w)</span>
+0012 <span class="comment">%             'l2'  -&gt; use l2 distance, h = floor((x . r - b) / w)</span>
+0013 <span class="comment">%             'cos' -&gt; use cons ditance, h = sign(x . r)</span>
+0014 <span class="comment">%             'min-hash'  -&gt; use min-hash function, h = min(perm(x))</span>
+0015 <span class="comment">%             'sph-sim'   -&gt; use spherical simplex function</span>
+0016 <span class="comment">%             'sph-orth'  -&gt; use spherical orthoplex</span>
+0017 <span class="comment">%             'sph-hyp'   -&gt; use shperical hypercube</span>
+0018 <span class="comment">%             'bin-gauss' -&gt; binary gaussian kernels</span>
+0019 <span class="comment">% dist      - ['l2'] the distance type to use</span>
+0020 <span class="comment">%             'l1'      -&gt; l1 distance</span>
+0021 <span class="comment">%             'l2'      -&gt; l2</span>
+0022 <span class="comment">%             'hamming' -&gt; hamming</span>
+0023 <span class="comment">%             'cos'     -&gt; dot-product</span>
+0024 <span class="comment">%             'arcos'   -&gt; acos of dot-product</span>
+0025 <span class="comment">%             'bhat'    -&gt; Bhattacharya distance</span>
+0026 <span class="comment">%             'kl'      -&gt; KL-divergence</span>
+0027 <span class="comment">%             'jac'     -&gt; Jacquard distance</span>
+0028 <span class="comment">%             'xor'     -&gt; XOR distance for packed binary numbers</span>
+0029 <span class="comment">% norm      - [1] normalize or not</span>
+0030 <span class="comment">% ndims     - the number of dimensions for the input data</span>
+0031 <span class="comment">% w         - [.25] the size of the bin for 'l2' and 'l1' hash functions</span>
+0032 <span class="comment">% tsize     - [1000] the size of the table if it's a fixed size table,</span>
+0033 <span class="comment">%             or 0 for a variable sized hash table</span>
+0034 <span class="comment">% seed      - random seed for input</span>
+0035 <span class="comment">% hwidth    - [0] number of bits of every hash value. In case hwidth~=0,</span>
+0036 <span class="comment">%             the outputs of the different hash functions are OR'ed</span>
+0037 <span class="comment">%             together at the right place, with function 1 at place</span>
+0038 <span class="comment">%             nfuncs*hwidth and function N at place 0 (LSB).</span>
+0039 <span class="comment">% bitsperdim - [0] number of bits per input dimension. If nonzero, every</span>
+0040 <span class="comment">%             dimension represents bitsperdim binary bits, in which case,</span>
+0041 <span class="comment">%             the number of dimensions for Hamming hash function is</span>
+0042 <span class="comment">%             bitsperdim*ndims. This is useful only for 'ham' hash function.</span>
+0043 <span class="comment">%</span>
+0044 <span class="comment">% OUTPUTS</span>
+0045 <span class="comment">% -------</span>
+0046 <span class="comment">% lsh       - the output lsh</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">% See also ccvLshClean ccvLshInsert ccvLshLoad ccvLshSave ccvLshSearch</span>
+0049 <span class="comment">% ccvLshBucketId ccvLshFuncVal ccvLshStats ccvLshBucketPoints ccvLshKnn</span>
+0050 
+0051 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0052 <span class="comment">% Date: October 6, 2010</span>
+0053 
+0054 <span class="keyword">if</span> ~exist(<span class="string">'ntables'</span>,<span class="string">'var'</span>) || isempty(ntables), ntables = 1; <span class="keyword">end</span>;
+0055 <span class="keyword">if</span> ~exist(<span class="string">'nfuncs'</span>,<span class="string">'var'</span>) || isempty(nfuncs), nfuncs = 5; <span class="keyword">end</span>;
+0056 <span class="keyword">if</span> ~exist(<span class="string">'htype'</span>,<span class="string">'var'</span>) || isempty(htype), htype = <span class="string">'l2'</span>; <span class="keyword">end</span>;
+0057 <span class="keyword">if</span> ~exist(<span class="string">'dist'</span>,<span class="string">'var'</span>) || isempty(dist), dist = <span class="string">'l2'</span>; <span class="keyword">end</span>;
+0058 <span class="keyword">if</span> ~exist(<span class="string">'norm'</span>,<span class="string">'var'</span>) || isempty(norm), norm = 1; <span class="keyword">end</span>;
+0059 <span class="keyword">if</span> ~exist(<span class="string">'w'</span>,<span class="string">'var'</span>) || isempty(w), w = .25; <span class="keyword">end</span>;
+0060 <span class="keyword">if</span> ~exist(<span class="string">'tsize'</span>,<span class="string">'var'</span>) || isempty(tsize), tsize = 1000; <span class="keyword">end</span>;
+0061 <span class="keyword">if</span> ~exist(<span class="string">'seed'</span>,<span class="string">'var'</span>) || isempty(seed), seed = hex2num(<span class="string">'ffff00'</span>); <span class="keyword">end</span>;
+0062 <span class="keyword">if</span> ~exist(<span class="string">'hwidth'</span>,<span class="string">'var'</span>) || isempty(hwidth), hwidth = 0; <span class="keyword">end</span>;
+0063 <span class="keyword">if</span> ~exist(<span class="string">'bitsperdim'</span>,<span class="string">'var'</span>) || isempty(bitsperdim), bitsperdim = 0; <span class="keyword">end</span>;
+0064 
+0065 <span class="comment">%call the mex file</span>
+0066 lsh = mxLshCreate(ntables, nfuncs, htype, dist, norm, ndims, w, 1, hwidth, <span class="keyword">...</span>
+0067   tsize, 0, 0, seed, bitsperdim, 0);
+0068</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

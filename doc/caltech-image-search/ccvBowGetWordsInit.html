@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvBowGetWordsInit</title>
+  <meta name="keywords" content="ccvBowGetWordsInit">
+  <meta name="description" content="CCVBOWGETWORDSINIT initializes quantizing words e.g. returns the kd-tree">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvBowGetWordsInit.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvBowGetWordsInit
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVBOWGETWORDSINIT initializes quantizing words e.g. returns the kd-tree</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function gws = ccvBowGetWordsInit(words, type, cluster, tparams, cparams) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVBOWGETWORDSINIT initializes quantizing words e.g. returns the kd-tree
+ to use for quantization
+ 
+ INPUTS
+ ------
+ words   - the words to use for quantization, output from ccvBowGetDict
+ type    - the type of dictionary
+           'flat'    - a flat dictionary from the data
+           'class'   - make a different dictionary per class
+           'spatial' - use a spatial pyramid
+ cluster - the clustering method
+           'akmeans'   - use approximate k-means for clustering
+           'lsh'       - use LSH for clustering
+ tparams - parameters for the type of dictionary
+ cparams - parameters for the clustering method
+
+ OUTPUTS
+ -------
+ gws     - the return structure to use for quantization
+
+ See also <a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">ccvBowGetDict</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ccvHkmImport.html" class="code" title="function hkm = ccvHkmImport(mhkm)">ccvHkmImport</a>	CCVHKMIMPORT imports the input matlab hkm structure (output of</li><li><a href="ccvKdtCreate.html" class="code" title="function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim)">ccvKdtCreate</a>	CCVKDTCREATE creates a randomized Kd-tree / Kd-forest</li><li><a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a>	CCVLSHCREATE creates an LSH index</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="DEMO.html" class="code" title="function DEMO">DEMO</a>	DEMO a demo script to show typical usage</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function dict = getDict(words, cluster, params)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function gws = ccvBowGetWordsInit(words, type, cluster, tparams, cparams)</a>
+0002 <span class="comment">% CCVBOWGETWORDSINIT initializes quantizing words e.g. returns the kd-tree</span>
+0003 <span class="comment">% to use for quantization</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% INPUTS</span>
+0006 <span class="comment">% ------</span>
+0007 <span class="comment">% words   - the words to use for quantization, output from ccvBowGetDict</span>
+0008 <span class="comment">% type    - the type of dictionary</span>
+0009 <span class="comment">%           'flat'    - a flat dictionary from the data</span>
+0010 <span class="comment">%           'class'   - make a different dictionary per class</span>
+0011 <span class="comment">%           'spatial' - use a spatial pyramid</span>
+0012 <span class="comment">% cluster - the clustering method</span>
+0013 <span class="comment">%           'akmeans'   - use approximate k-means for clustering</span>
+0014 <span class="comment">%           'lsh'       - use LSH for clustering</span>
+0015 <span class="comment">% tparams - parameters for the type of dictionary</span>
+0016 <span class="comment">% cparams - parameters for the clustering method</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% OUTPUTS</span>
+0019 <span class="comment">% -------</span>
+0020 <span class="comment">% gws     - the return structure to use for quantization</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% See also ccvBowGetDict</span>
+0023 <span class="comment">%</span>
+0024 
+0025 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0026 <span class="comment">% Date: October 6, 2010</span>
+0027 
+0028 
+0029 <span class="keyword">switch</span> type
+0030   <span class="comment">%flat dictionary</span>
+0031   <span class="keyword">case</span> {<span class="string">'flat'</span>, <span class="string">'lsh-multi'</span>}
+0032     <span class="comment">%cluster</span>
+0033     gws.dict = <a href="#_sub1" class="code" title="subfunction dict = getDict(words, cluster, params)">getDict</a>(words, cluster, cparams);
+0034     
+0035   <span class="comment">%per-class</span>
+0036   <span class="keyword">case</span> <span class="string">'per-class'</span>
+0037     <span class="comment">%no. of classes</span>
+0038     ncs = length(words);
+0039     <span class="comment">%loop</span>
+0040     gws.dict = cell(1, ncs);
+0041     <span class="keyword">for</span> c=1:ncs
+0042       gws.dict{c} = <a href="#_sub1" class="code" title="subfunction dict = getDict(words, cluster, params)">getDict</a>(words{c}, cluster, cparams);
+0043     <span class="keyword">end</span>;
+0044     
+0045 
+0046 <span class="keyword">end</span>; <span class="comment">%switch type</span>
+0047 
+0048 gws.type = type;
+0049 gws.cluster = cluster;
+0050 gws.tparams = tparams;
+0051 gws.cparams = cparams;
+0052 
+0053 
+0054 
+0055 <span class="comment">% -----------------------------------------------------------------------</span>
+0056 <span class="comment">% clusters the input data</span>
+0057 <a name="_sub1" href="#_subfunctions" class="code">function dict = getDict(words, cluster, params)</a>
+0058 
+0059 <span class="keyword">switch</span> cluster
+0060   <span class="keyword">case</span> <span class="string">'akmeans'</span>
+0061     dict = <a href="ccvKdtCreate.html" class="code" title="function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim)">ccvKdtCreate</a>(words, params{3:end});
+0062     
+0063   <span class="keyword">case</span> <span class="string">'lsh'</span>
+0064     dict.lsh = <a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a>(words.params{:});
+0065 <span class="comment">%     dict.ids = words.ids;</span>
+0066     dict.nwords = words.nwords;
+0067     
+0068   <span class="keyword">case</span> <span class="string">'xkmeans'</span>
+0069     <span class="comment">%get the lsh for computing signatures</span>
+0070     seed = 123;
+0071     <span class="keyword">if</span> isfield(params,<span class="string">'seed'</span>), seed = params.seed; <span class="keyword">end</span>;
+0072     dict.lsh = <a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a>(params.ndir, 1, <span class="string">'cos'</span>,<span class="string">'l2'</span>,0,size(words.means,1),0,1,seed);    
+0073     
+0074     dict.ndir = params.ndir;
+0075     dict.class = params.class;
+0076     
+0077   <span class="keyword">case</span> <span class="string">'hkmeans'</span>
+0078     dict = <a href="ccvHkmImport.html" class="code" title="function hkm = ccvHkmImport(mhkm)">ccvHkmImport</a>(words);
+0079     
+0080 <span class="keyword">end</span>; <span class="comment">%switch cluster</span></pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

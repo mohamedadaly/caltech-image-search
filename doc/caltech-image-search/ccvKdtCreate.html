@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvKdtCreate</title>
+  <meta name="keywords" content="ccvKdtCreate">
+  <meta name="description" content="CCVKDTCREATE creates a randomized Kd-tree / Kd-forest">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvKdtCreate.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvKdtCreate
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVKDTCREATE creates a randomized Kd-tree / Kd-forest</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth,minvar, cycle, dist, maxbins, sample, bitsperdim) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVKDTCREATE creates a randomized Kd-tree / Kd-forest
+ 
+ INPUTS
+ ------
+ data      - the input data
+ ntrees    - [1] the number of trees
+ varrange  - [0.8] the range for variance within the max to choose the dimension from
+ meanrange - [0] the range of mean to choose from
+ maxdepth  - [0] a maximum depth for the tree (0 means unlimited), root of
+             the tree has depth 1, so a tree with three levels has depth=3
+             and total of 2^3-1=7 nodes i.e. 2^(depth-1) leaf nodes and
+             2^(depth)-1 total nodes
+ minvar    - [0] the minimum variance to consider
+ cycle     - [0] cycle through the dimensions or just choose the max
+             variance every iteration
+ dist      - ['l2'] the distance to use
+ maxbins   - [50] the maximum number of bins to use for searching
+ sample    - [200] the number of samples to use to estimate the variance 
+             0 means use all points
+ bitsperdim - [0] how many bits per dimension if compact binary input
+
+ OUTPUTS
+ -------
+ kdt       - the output kdtree
+
+ See also <a href="ccvKdtClean.html" class="code" title="function ccvKdtClean(kdt)">ccvKdtClean</a> <a href="ccvKdtKnn.html" class="code" title="function [ids, dists] = ccvKdtKnn(kdt, kdtData, sData, k, tData)">ccvKdtKnn</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="DEMO.html" class="code" title="function DEMO">DEMO</a>	DEMO a demo script to show typical usage</li><li><a href="ccvAkmeansCreate.html" class="code" title="function [akmeans] = ccvAkmeansCreate(data, k, maxiter, type, ntrees,varrange, meanrange, maxdepth, minvar, cycle, dist, maxbins,sample, mex, matlabout, seed, verbose)">ccvAkmeansCreate</a>	CCVAKMEANS computes kmeans clustering on the input data using</li><li><a href="ccvBowGetWordsInit.html" class="code" title="function gws = ccvBowGetWordsInit(words, type, cluster, tparams, cparams)">ccvBowGetWordsInit</a>	CCVBOWGETWORDSINIT initializes quantizing words e.g. returns the kd-tree</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function kdt = ccvKdtCreate(data, ntrees, varrange, meanrange, maxdepth, </a><span class="keyword">...</span>
+0002   minvar, cycle, dist, maxbins, sample, bitsperdim)
+0003 <span class="comment">% CCVKDTCREATE creates a randomized Kd-tree / Kd-forest</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% INPUTS</span>
+0006 <span class="comment">% ------</span>
+0007 <span class="comment">% data      - the input data</span>
+0008 <span class="comment">% ntrees    - [1] the number of trees</span>
+0009 <span class="comment">% varrange  - [0.8] the range for variance within the max to choose the dimension from</span>
+0010 <span class="comment">% meanrange - [0] the range of mean to choose from</span>
+0011 <span class="comment">% maxdepth  - [0] a maximum depth for the tree (0 means unlimited), root of</span>
+0012 <span class="comment">%             the tree has depth 1, so a tree with three levels has depth=3</span>
+0013 <span class="comment">%             and total of 2^3-1=7 nodes i.e. 2^(depth-1) leaf nodes and</span>
+0014 <span class="comment">%             2^(depth)-1 total nodes</span>
+0015 <span class="comment">% minvar    - [0] the minimum variance to consider</span>
+0016 <span class="comment">% cycle     - [0] cycle through the dimensions or just choose the max</span>
+0017 <span class="comment">%             variance every iteration</span>
+0018 <span class="comment">% dist      - ['l2'] the distance to use</span>
+0019 <span class="comment">% maxbins   - [50] the maximum number of bins to use for searching</span>
+0020 <span class="comment">% sample    - [200] the number of samples to use to estimate the variance</span>
+0021 <span class="comment">%             0 means use all points</span>
+0022 <span class="comment">% bitsperdim - [0] how many bits per dimension if compact binary input</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">% OUTPUTS</span>
+0025 <span class="comment">% -------</span>
+0026 <span class="comment">% kdt       - the output kdtree</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">% See also ccvKdtClean ccvKdtKnn</span>
+0029 <span class="comment">%</span>
+0030 
+0031 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0032 <span class="comment">% Date: October 6, 2010</span>
+0033 
+0034 <span class="comment">%defaults</span>
+0035 <span class="keyword">if</span> ~exist(<span class="string">'ntrees'</span>,<span class="string">'var'</span>) || isempty(ntrees), ntrees = 1; <span class="keyword">end</span>;
+0036 <span class="keyword">if</span> ~exist(<span class="string">'varrange'</span>,<span class="string">'var'</span>) || isempty(varrange), varrange = 0; <span class="keyword">end</span>;
+0037 <span class="keyword">if</span> ~exist(<span class="string">'meanrange'</span>,<span class="string">'var'</span>) || isempty(meanrange), meanrange = 0; <span class="keyword">end</span>;
+0038 <span class="keyword">if</span> ~exist(<span class="string">'maxdepth'</span>,<span class="string">'var'</span>) || isempty(maxdepth), maxdepth = 0; <span class="keyword">end</span>;
+0039 <span class="keyword">if</span> ~exist(<span class="string">'minvar'</span>,<span class="string">'var'</span>) || isempty(minvar), minvar = 0; <span class="keyword">end</span>;
+0040 <span class="keyword">if</span> ~exist(<span class="string">'cycle'</span>,<span class="string">'var'</span>) || isempty(cycle), cycle = 0; <span class="keyword">end</span>;
+0041 <span class="keyword">if</span> ~exist(<span class="string">'dist'</span>,<span class="string">'var'</span>) || isempty(dist), dist = <span class="string">'l2'</span>; <span class="keyword">end</span>;
+0042 <span class="keyword">if</span> ~exist(<span class="string">'maxbins'</span>,<span class="string">'var'</span>) || isempty(maxbins), maxbins = 50; <span class="keyword">end</span>;
+0043 <span class="keyword">if</span> ~exist(<span class="string">'sample'</span>,<span class="string">'var'</span>) || isempty(sample), sample = 200; <span class="keyword">end</span>;
+0044 <span class="keyword">if</span> ~exist(<span class="string">'bitsperdim'</span>,<span class="string">'var'</span>) || isempty(bitsperdim), bitsperdim = 0; <span class="keyword">end</span>;
+0045 
+0046 <span class="comment">%call the mex file</span>
+0047 kdt = mxKdtCreate(data, ntrees, varrange, meanrange, maxdepth, minvar, cycle, <span class="keyword">...</span>
+0048   dist, maxbins, sample, bitsperdim);
+0049</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

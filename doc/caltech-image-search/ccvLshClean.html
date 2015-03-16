@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvLshClean</title>
+  <meta name="keywords" content="ccvLshClean">
+  <meta name="description" content="CCVLSHCLEAN cleans the input lsh">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvLshClean.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvLshClean
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVLSHCLEAN cleans the input lsh</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function ccvLshClean(lsh) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVLSHCLEAN cleans the input lsh
+
+ INPUTS
+ ------
+ lsh       - the input lsh
+
+ OUTPUTS
+ -------
+
+ See also <a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a> <a href="ccvLshInsert.html" class="code" title="function ccvLshInsert(lsh, points, idshift)">ccvLshInsert</a> <a href="ccvLshLoad.html" class="code" title="function lsh = ccvLshLoad(file)">ccvLshLoad</a> <a href="ccvLshSave.html" class="code" title="function ccvLshSave(lsh, file)">ccvLshSave</a> <a href="ccvLshSearch.html" class="code" title="function ids = ccvLshSearch(lsh, points, nret)">ccvLshSearch</a>
+ <a href="ccvLshBucketId.html" class="code" title="function ids = ccvLshBucketId(lsh, points)">ccvLshBucketId</a> <a href="ccvLshFuncVal.html" class="code" title="function vals = ccvLshFuncVal(lsh, points, cellout)">ccvLshFuncVal</a> <a href="ccvLshStats.html" class="code" title="function [stats, meanStats] = ccvLshStats(lsh)">ccvLshStats</a> <a href="ccvLshBucketPoints.html" class="code" title="function ids = ccvLshBucketPoints(lsh, buckets, table, nret)">ccvLshBucketPoints</a> <a href="ccvLshKnn.html" class="code" title="function [ids, dists] = ccvLshKnn(lsh, lshData, sData, k, dist)">ccvLshKnn</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="DEMO.html" class="code" title="function DEMO">DEMO</a>	DEMO a demo script to show typical usage</li><li><a href="ccvBowGetDict.html" class="code" title="function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile)">ccvBowGetDict</a>	CCVBOWGETDICT computes the dictionary given the input data</li><li><a href="ccvBowGetWordsClean.html" class="code" title="function ccvBowGetWordsClean(gws)">ccvBowGetWordsClean</a>	CCVBOWGETWORDSCLEAN cleans memory after computing word quantizations</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function ccvLshClean(lsh)</a>
+0002 <span class="comment">% CCVLSHCLEAN cleans the input lsh</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% INPUTS</span>
+0005 <span class="comment">% ------</span>
+0006 <span class="comment">% lsh       - the input lsh</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% OUTPUTS</span>
+0009 <span class="comment">% -------</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% See also ccvLshCreate ccvLshInsert ccvLshLoad ccvLshSave ccvLshSearch</span>
+0012 <span class="comment">% ccvLshBucketId ccvLshFuncVal ccvLshStats ccvLshBucketPoints ccvLshKnn</span>
+0013 
+0014 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0015 <span class="comment">% Date: October 6, 2010</span>
+0016 
+0017 
+0018 <span class="comment">%call the mex file</span>
+0019 mxLshClean(lsh); 
+0020</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

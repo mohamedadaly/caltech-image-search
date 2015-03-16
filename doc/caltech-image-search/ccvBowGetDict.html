@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ccvBowGetDict</title>
+  <meta name="keywords" content="ccvBowGetDict">
+  <meta name="description" content="CCVBOWGETDICT computes the dictionary given the input data">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">caltech-image-search</a> &gt; ccvBowGetDict.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for caltech-image-search&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ccvBowGetDict
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CCVBOWGETDICT computes the dictionary given the input data</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster,tparams, cparams, init, dfile) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CCVBOWGETDICT computes the dictionary given the input data
+ 
+ INPUTS
+ ------
+ data    - the input data, one point per column [ndimsXnpoints]
+ labels  - the labels for the data points
+ locs    - the locations for the data points [2Xnpoints]
+ nwords  - the number of words required
+ type    - the type of dictionary
+           'flat'    - a flat dictionary from the data
+           'class'   - make a different dictionary per class
+           'spatial' - use a spatial pyramid
+ cluster - the clustering method
+           'akmeans'   - use approximate k-means for clustering
+           'lsh'       - use LSH for clustering
+           'hkmeans'   - use Hierarchical K-means
+ tparams - parameters for the type of dictionary
+ cparams - parameters for the clustering method
+
+ OUTPUTS
+ -------
+ words   - the output words
+ nwords  - the output total no. of words
+
+ See also ccvRansacAffine</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ccvAkmeansClean.html" class="code" title="function akmeans = ccvAkmeansClean(akmeans)">ccvAkmeansClean</a>	CCVAKMEANSCLEAN clears the kdtree within the akmeans structure</li><li><a href="ccvAkmeansCreate.html" class="code" title="function [akmeans] = ccvAkmeansCreate(data, k, maxiter, type, ntrees,varrange, meanrange, maxdepth, minvar, cycle, dist, maxbins,sample, mex, matlabout, seed, verbose)">ccvAkmeansCreate</a>	CCVAKMEANS computes kmeans clustering on the input data using</li><li><a href="ccvHkmClean.html" class="code" title="function ccvHkmClean(hkm)">ccvHkmClean</a>	CCVHKMCLEAN clears the memory for teh input hkm</li><li><a href="ccvHkmCreate.html" class="code" title="function hkm = ccvHkmCreate(data, ni, nl, nb, dist, usekdt, ntrees, nchecks,nkdtrees, varrange, meanrange, cycle, maxbins, sample)">ccvHkmCreate</a>	CCVHKMCREATE creates a hierarchical k-means structure. It can also</li><li><a href="ccvHkmExport.html" class="code" title="function mhkm = ccvHkmExport(hkm, getids)">ccvHkmExport</a>	CCVHKMEXPORT exports the input hkm structure to matlab, so that it can be</li><li><a href="ccvKnn.html" class="code" title="function [ids, dists] = ccvKnn(data1, data2, k, dist, mex)">ccvKnn</a>	CCVKNN gets the K nearest neighbors for each point in data1 to each point</li><li><a href="ccvLshBucketId.html" class="code" title="function ids = ccvLshBucketId(lsh, points)">ccvLshBucketId</a>	CCVLSHBUCKETID returns the bucket ids for the input ponits</li><li><a href="ccvLshClean.html" class="code" title="function ccvLshClean(lsh)">ccvLshClean</a>	CCVLSHCLEAN cleans the input lsh</li><li><a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a>	CCVLSHCREATE creates an LSH index</li><li><a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>	CCVRANDSEED will set/restore the seed for the defeault random stream</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="DEMO.html" class="code" title="function DEMO">DEMO</a>	DEMO a demo script to show typical usage</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [w, nw] = clusterData(feats, nwords, cluster, params, init)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [words, nwords] = ccvBowGetDict(data, labels, locs, nwords, type, cluster, </a><span class="keyword">...</span>
+0002   tparams, cparams, init, dfile)
+0003 <span class="comment">% CCVBOWGETDICT computes the dictionary given the input data</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% INPUTS</span>
+0006 <span class="comment">% ------</span>
+0007 <span class="comment">% data    - the input data, one point per column [ndimsXnpoints]</span>
+0008 <span class="comment">% labels  - the labels for the data points</span>
+0009 <span class="comment">% locs    - the locations for the data points [2Xnpoints]</span>
+0010 <span class="comment">% nwords  - the number of words required</span>
+0011 <span class="comment">% type    - the type of dictionary</span>
+0012 <span class="comment">%           'flat'    - a flat dictionary from the data</span>
+0013 <span class="comment">%           'class'   - make a different dictionary per class</span>
+0014 <span class="comment">%           'spatial' - use a spatial pyramid</span>
+0015 <span class="comment">% cluster - the clustering method</span>
+0016 <span class="comment">%           'akmeans'   - use approximate k-means for clustering</span>
+0017 <span class="comment">%           'lsh'       - use LSH for clustering</span>
+0018 <span class="comment">%           'hkmeans'   - use Hierarchical K-means</span>
+0019 <span class="comment">% tparams - parameters for the type of dictionary</span>
+0020 <span class="comment">% cparams - parameters for the clustering method</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% OUTPUTS</span>
+0023 <span class="comment">% -------</span>
+0024 <span class="comment">% words   - the output words</span>
+0025 <span class="comment">% nwords  - the output total no. of words</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">% See also ccvRansacAffine</span>
+0028 <span class="comment">%</span>
+0029 
+0030 <span class="comment">% Author: Mohamed Aly &lt;malaa at vision d0t caltech d0t edu&gt;</span>
+0031 <span class="comment">% Date: October 6, 2010</span>
+0032 
+0033 <span class="keyword">if</span> ~exist(<span class="string">'init'</span>,<span class="string">'var'</span>), init = []; <span class="keyword">end</span>;
+0034 <span class="keyword">if</span> ~exist(<span class="string">'dfile'</span>,<span class="string">'var'</span>), dfile = []; <span class="keyword">end</span>;
+0035 
+0036 <span class="comment">%global file for temp processing</span>
+0037 <span class="keyword">global</span> tempdictfile
+0038 tempdictfile = dfile;
+0039 
+0040 <span class="keyword">switch</span> type
+0041   <span class="comment">%flat dictionary</span>
+0042   <span class="keyword">case</span> <span class="string">'flat'</span>
+0043     <span class="keyword">if</span> isfield(tparams, <span class="string">'seed'</span>)
+0044       <span class="keyword">if</span> strcmp(class(data),<span class="string">'Composite'</span>)
+0045         spmd 
+0046           <span class="comment">%init random</span>
+0047           old = <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(tparams.seed, <span class="string">'set'</span>); 
+0048           data=data(:,randperm(size(data,2))); 
+0049           <span class="comment">%restore</span>
+0050           <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(old, <span class="string">'restore'</span>);
+0051         <span class="keyword">end</span>;        
+0052       <span class="keyword">else</span>
+0053         <span class="comment">%init random</span>
+0054         old = <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(tparams.seed, <span class="string">'set'</span>); 
+0055         data=data(:,randperm(size(data,2))); 
+0056         <span class="comment">%restore</span>
+0057         <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(old, <span class="string">'restore'</span>);
+0058       <span class="keyword">end</span>;      
+0059     <span class="keyword">end</span>;
+0060     
+0061     <span class="comment">%cluster</span>
+0062     [words, nwords] = <a href="#_sub1" class="code" title="subfunction [w, nw] = clusterData(feats, nwords, cluster, params, init)">clusterData</a>(data, nwords, cluster, cparams, init);  
+0063     
+0064   <span class="keyword">case</span> <span class="string">'lsh-multi'</span>
+0065     [words nwords] = <a href="#_sub1" class="code" title="subfunction [w, nw] = clusterData(feats, nwords, cluster, params, init)">clusterData</a>(data, nwords, cluster, cparams, init);
+0066     words.tparams = tparams;
+0067     
+0068   <span class="comment">%multiple dictionaries</span>
+0069   <span class="keyword">case</span> <span class="string">'multiple'</span>
+0070     <span class="comment">%init random</span>
+0071     old = <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(1234, <span class="string">'set'</span>);
+0072     <span class="comment">%loop on number of dictionaries</span>
+0073     <span class="keyword">for</span> d=1:tparams.ndict
+0074       <span class="comment">%get random permutation of features</span>
+0075       ids = randperm(size(data,2));
+0076       <span class="comment">%get dict for that permutation</span>
+0077       [words{d} nwords{d}] = <a href="#_sub1" class="code" title="subfunction [w, nw] = clusterData(feats, nwords, cluster, params, init)">clusterData</a>(data(:,ids), nwords, cluster, cparams, init);
+0078     <span class="keyword">end</span>;
+0079     <span class="comment">%total words</span>
+0080     nwords = sum(nwords);
+0081     <span class="comment">%restore</span>
+0082     <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(old, <span class="string">'restore'</span>);
+0083     
+0084   <span class="comment">%make a separate dictionary for every class</span>
+0085   <span class="keyword">case</span> <span class="string">'per-class'</span>
+0086     <span class="comment">%unique claseses</span>
+0087     nc = tparams.nc;
+0088     cs = tparams.cs;
+0089     <span class="comment">%allocate output</span>
+0090     words = cell(1, nc);
+0091     cnwords = zeros(1, nc);
+0092     <span class="comment">%loop on classes</span>
+0093     <span class="keyword">for</span> ci=1:nc
+0094       c = cs(ci);
+0095       <span class="comment">%build dictionary with data for that label</span>
+0096       [words{ci} cnwords(ci)] = <a href="#_sub1" class="code" title="subfunction [w, nw] = clusterData(feats, nwords, cluster, params, init)">clusterData</a>(data(:, labels==c), nwords, cluster, cparams, init);
+0097     <span class="keyword">end</span>;
+0098     <span class="comment">%sum total words</span>
+0099     nwords = max(cnwords);
+0100 
+0101 <span class="keyword">end</span>; <span class="comment">%switch type</span>
+0102 
+0103 
+0104 
+0105 <span class="comment">% -----------------------------------------------------------------------</span>
+0106 <span class="comment">% clusters the input data</span>
+0107 <a name="_sub1" href="#_subfunctions" class="code">function [w, nw] = clusterData(feats, nwords, cluster, params, init)</a>
+0108 
+0109 <span class="keyword">switch</span> cluster
+0110   <span class="keyword">case</span> <span class="string">'akmeans'</span>
+0111     <span class="keyword">if</span> strcmp(class(feats),<span class="string">'Composite'</span>)
+0112       spmd npoints=size(feats,2); npoints=gplus(npoints,1); <span class="keyword">end</span>
+0113       npoints = npoints{1};
+0114 <span class="comment">%       npoints=0; for i=1:length(feats), npoints=npoints+size(feats{i},2); end;</span>
+0115     <span class="keyword">else</span>
+0116       npoints = size(feats,2);
+0117     <span class="keyword">end</span>;
+0118     <span class="comment">%do we need to cluster?</span>
+0119     <span class="keyword">if</span> npoints &lt;= nwords
+0120       w = feats;
+0121     <span class="keyword">else</span>
+0122       <span class="comment">%get the akmeans</span>
+0123       akmeans = <a href="ccvAkmeansCreate.html" class="code" title="function [akmeans] = ccvAkmeansCreate(data, k, maxiter, type, ntrees,varrange, meanrange, maxdepth, minvar, cycle, dist, maxbins,sample, mex, matlabout, seed, verbose)">ccvAkmeansCreate</a>(feats, nwords, params{:});
+0124       w = akmeans.means;
+0125       <a href="ccvAkmeansClean.html" class="code" title="function akmeans = ccvAkmeansClean(akmeans)">ccvAkmeansClean</a>(akmeans);
+0126     <span class="keyword">end</span>;    
+0127     <span class="comment">%set the class of words as that of feats</span>
+0128 <span class="comment">%       w = feval(class(feats), w);</span>
+0129     nw = size(w, 2);
+0130     
+0131   <span class="keyword">case</span> <span class="string">'lsh'</span>
+0132     <span class="comment">%set the dimension</span>
+0133     params{6} = size(feats,1);
+0134     <span class="comment">%put the parameters</span>
+0135     w.params = params;     
+0136     w.nwords = nwords;
+0137     
+0138 <span class="comment">%     lsh = ccvLshCreate(params{:});</span>
+0139 <span class="comment">%     w.ids = unique(ccvLshBucketId(lsh, feats));</span>
+0140 <span class="comment">%     ccvLshClean(lsh);</span>
+0141     
+0142     nw = nwords;
+0143     
+0144   <span class="keyword">case</span> <span class="string">'xkmeans'</span>
+0145     
+0146     parallel = 0;
+0147     <span class="keyword">try</span> <span class="keyword">if</span> matlabpool(<span class="string">'size'</span>)&gt;0, parallel = 1; <span class="keyword">end</span>; <span class="keyword">catch</span> <span class="keyword">end</span>;
+0148     
+0149     <span class="comment">%init</span>
+0150     [ndims npoints] = size(feats);
+0151     k = params.k;
+0152     maxiter = params.maxiter;
+0153     eps = params.eps;
+0154     
+0155     <span class="comment">%compute the random directions</span>
+0156     seed = 123;
+0157     <span class="keyword">if</span> isfield(params,<span class="string">'seed'</span>), seed = params.seed; <span class="keyword">end</span>;
+0158     lsh = <a href="ccvLshCreate.html" class="code" title="function lsh = ccvLshCreate(ntables, nfuncs, htype, dist, norm, ndims,w, tsize, seed, hwidth, bitsperdim)">ccvLshCreate</a>(params.ndir, 1, <span class="string">'cos'</span>,<span class="string">'l2'</span>,0,ndims,0,1,seed);
+0159     rnd = <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(seed, <span class="string">'set'</span>);
+0160 <span class="comment">%     w.dir = randn(params.ndir, size(feats,1), 'single');</span>
+0161     
+0162     <span class="comment">%compute signatures for input feats</span>
+0163     fprintf(<span class="string">' getting signatures..\n'</span>);
+0164     rsig = <a href="ccvLshBucketId.html" class="code" title="function ids = ccvLshBucketId(lsh, points)">ccvLshBucketId</a>(lsh, feats);
+0165     rsig = feval(params.class,rsig);
+0166     datasig = zeros(1, npoints, params.class);
+0167     <span class="keyword">for</span> i=1:params.ndir
+0168       datasig = bitor(bitshift(datasig,1), rsig(i,:));
+0169     <span class="keyword">end</span>;
+0170     
+0171     <span class="keyword">if</span> parallel
+0172       ss = Composite();
+0173       len = ceil(npoints/length(ss));
+0174       <span class="keyword">for</span> l=1:length(ss)
+0175         ss{l} = datasig((l-1)*len+1 : min(l*len, npoints));
+0176       <span class="keyword">end</span>;
+0177 <span class="comment">%       spmd</span>
+0178 <span class="comment">%         %distribute</span>
+0179 <span class="comment">%         ss = codistributed(datasig, codistributor1d(2));</span>
+0180 <span class="comment">%         %get local part</span>
+0181 <span class="comment">%         xx=getLocalPart(ss);</span>
+0182 <span class="comment">%       end;</span>
+0183     <span class="keyword">end</span>;
+0184     
+0185     <span class="comment">%initial means: random</span>
+0186     <span class="keyword">if</span> ~exist(<span class="string">'init'</span>,<span class="string">'var'</span>) || isempty(init)
+0187       mm = randperm(npoints); 
+0188       means = feats(:, mm(1:k));
+0189       meanssig = datasig(mm(1:k));
+0190       meandists = zeros(1, k, <span class="string">'single'</span>);
+0191     <span class="comment">%from input</span>
+0192     <span class="keyword">else</span>
+0193       means = init.means;
+0194       meanssig = init.meanssig;
+0195     <span class="keyword">end</span>;
+0196     oldmeans = means;
+0197     
+0198     iter=1; cont = 1;
+0199     fprintf(<span class="string">'  starting k-means..\n'</span>);
+0200     <span class="keyword">while</span> cont &amp;&amp; iter&lt;=maxiter
+0201       ittic = tic;
+0202       <span class="comment">%get closest means</span>
+0203       nntic = tic;
+0204       <span class="keyword">if</span> ~parallel
+0205         [ids dists] = <a href="ccvKnn.html" class="code" title="function [ids, dists] = ccvKnn(data1, data2, k, dist, mex)">ccvKnn</a>(datasig, meanssig,1,<span class="string">'xor'</span>,1);
+0206       <span class="keyword">else</span>
+0207         spmd
+0208           [ii dd] = <a href="ccvKnn.html" class="code" title="function [ids, dists] = ccvKnn(data1, data2, k, dist, mex)">ccvKnn</a>(ss, meanssig,1,<span class="string">'xor'</span>,1);
+0209 <span class="comment">%           size(ss)</span>
+0210 <span class="comment">%           [ii dd] = ccvKnn(ss, meanssig,1,'xor',1);</span>
+0211         <span class="keyword">end</span>;
+0212         ids = cell2mat(ii(:)');
+0213         dists = cell2mat(dd(:)');
+0214       <span class="keyword">end</span>;
+0215       fprintf(<span class="string">'  nn %.2f min '</span>, toc(nntic)/60);
+0216       
+0217       <span class="comment">%compute new means</span>
+0218       mtic = tic;
+0219       parfor m=1:k
+0220         <span class="comment">%get ids for this mean</span>
+0221         mids = ids==m;
+0222         <span class="comment">%check if empty</span>
+0223         <span class="keyword">if</span> ~any(mids)
+0224           means(:,m) = oldmeans(:,m);
+0225           meandists(m) = 0;
+0226         <span class="keyword">else</span>
+0227           means(:,m) = mean(feats(:,mids), 2);  
+0228           meandists(m) = sum(dists(mids));
+0229         <span class="keyword">end</span>;
+0230       <span class="keyword">end</span>;
+0231       fprintf(<span class="string">'means %.2f min\n'</span>, toc(mtic)/60);
+0232       
+0233       meandist(iter) = mean(meandists);
+0234       
+0235       <span class="comment">%recompute mean sigs</span>
+0236       rsig = <a href="ccvLshBucketId.html" class="code" title="function ids = ccvLshBucketId(lsh, points)">ccvLshBucketId</a>(lsh,means);
+0237       rsig = feval(params.class, rsig);
+0238       meanssig = zeros(1, k, params.class);
+0239       <span class="keyword">for</span> i=1:params.ndir
+0240         meanssig = bitor(bitshift(meanssig,1), rsig(i,:));
+0241       <span class="keyword">end</span>;
+0242       
+0243       fprintf(<span class="string">'  iter %d: dist=%f took %.2f min\n'</span>, iter, meandist(iter), toc(ittic)/60);
+0244             
+0245       <span class="comment">%check</span>
+0246       <span class="keyword">if</span> iter&gt;1 &amp;&amp; abs(meandist(iter)-meandist(iter-1)) &lt;= eps
+0247         cont = 0;
+0248       <span class="keyword">end</span>;
+0249       iter = iter + 1;
+0250       
+0251     <span class="keyword">end</span>; <span class="comment">%while</span>
+0252     
+0253     <span class="comment">%save the means</span>
+0254     w.means = means; <span class="comment">%eval(sprintf('%s(means);', class(feats)));</span>
+0255     w.meanssig = meanssig;
+0256     w.class = params.class;
+0257     nw = size(means,2);
+0258     
+0259     <a href="ccvRandSeed.html" class="code" title="function old = ccvRandSeed(seed, op, type)">ccvRandSeed</a>(rnd,<span class="string">'restore'</span>);
+0260 
+0261     <span class="comment">%clear lsh</span>
+0262     <a href="ccvLshClean.html" class="code" title="function ccvLshClean(lsh)">ccvLshClean</a>(lsh);    
+0263     
+0264   <span class="keyword">case</span> <span class="string">'hkmeans'</span>
+0265     <span class="comment">%get the hkmeans</span>
+0266     hkmeans = <a href="ccvHkmCreate.html" class="code" title="function hkm = ccvHkmCreate(data, ni, nl, nb, dist, usekdt, ntrees, nchecks,nkdtrees, varrange, meanrange, cycle, maxbins, sample)">ccvHkmCreate</a>(feats, params{:});
+0267     <span class="comment">%create the saveable struct</span>
+0268     w = <a href="ccvHkmExport.html" class="code" title="function mhkm = ccvHkmExport(hkm, getids)">ccvHkmExport</a>(hkmeans, 0);
+0269     <span class="comment">%clean memory</span>
+0270     <a href="ccvHkmClean.html" class="code" title="function ccvHkmClean(hkm)">ccvHkmClean</a>(hkmeans);    
+0271     nw = nwords;
+0272         
+0273 <span class="keyword">end</span>; <span class="comment">%switch cluster</span>
+0274</pre></div>
+<hr><address>Generated on Fri 05-Nov-2010 19:46:04 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
